@@ -1,18 +1,13 @@
 package com.codeup.adlister.dao;
 
-import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.Vehicle;
 
 import java.util.List;
 
 import com.mysql.cj.jdbc.Driver;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MySQLVehiclesDao implements Vehicles {
     private Connection connection = null;
@@ -40,7 +35,24 @@ public class MySQLVehiclesDao implements Vehicles {
         }
     }
 
-    public List<Vehicle> findByUser_Id(long user_id) {
+    @Override
+    public Vehicle findByVehicle_id(long id) {
+        PreparedStatement statement = null;
+        String user = "" + id;
+        String query = "SELECT * FROM vehicles WHERE id = ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, user);
+            ResultSet rs = statement.executeQuery();
+             List<Vehicle> list = createVehicleAdsFromResults(rs);
+            return list.get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting vehicles from database with ID", e);
+        }
+    }
+
+    @Override
+    public List<Vehicle> findByUser_id(long user_id) {
         PreparedStatement statement = null;
         String user = "" + user_id;
         String query = "SELECT * FROM vehicles WHERE user_id = ?";
