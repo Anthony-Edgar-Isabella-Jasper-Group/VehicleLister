@@ -8,15 +8,15 @@
 <body>
     <jsp:include page="partials/navbar.jsp" />
     <div class="container">
-        <h1>Please fill in your information.</h1>
+        <h1 class="text-center mt-4">Register</h1>
         <form action="/register" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input id="username" name="username" class="form-control" type="text">
+                <input id="username" name="username" class="form-control" type="text" value="${sessionScope.registerUsername}">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input id="email" name="email" class="form-control" type="text">
+                <input id="email" name="email" class="form-control" type="text" value="${sessionScope.registerEmail}">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
@@ -26,7 +26,7 @@
                 <label for="confirm_password">Confirm Password</label>
                 <input id="confirm_password" name="confirm_password" class="form-control" type="password">
             </div>
-            <input type="submit" class="btn btn-primary btn-block">
+            <input type="submit" class="btn btn-secondary btn-block">
         </form>
     </div>
 </body>

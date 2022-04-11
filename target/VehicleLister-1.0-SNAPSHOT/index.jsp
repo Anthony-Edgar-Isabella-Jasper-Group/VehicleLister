@@ -3,13 +3,16 @@
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="Welcome to my site!" />
+        <jsp:param name="title" value="Welcome Vehicle Lister!" />
     </jsp:include>
 </head>
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
     <div class="container">
-        <h1>Welcome to the Adlister!</h1>
+        <div class="container text-center">
+            <h2 class="mt-5">Have a car, truck or any vehicle you want to sell? <br> Create a profile and start listing your vehicle</h2>
+            <a class="btn btn-secondary btn-lg mt-5" href="/register" role="button">Sign up!</a>
+        </div>
     </div>
 </body>
 </html>

@@ -7,6 +7,8 @@ import java.util.List;
 public interface Vehicles {
 
     List<Vehicle> all();
+    Vehicle findByVehicle_id(long id);
+    List<Vehicle> findByUser_id(long user_id);
     List<Vehicle> findByMake(int make_id);
     List<Vehicle> findByModel(String model);
     List<Vehicle> findByYear(short year);
