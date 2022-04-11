@@ -14,6 +14,7 @@ public interface Vehicles {
     List<Vehicle> findByPrice(float price);
     List<Vehicle> findByMileage(int mileage);
     List<Vehicle> findByType(byte type);
+    List<Vehicle> findByUser_Id(long user_id);
     Long insert(Vehicle vehicle);
 
 
