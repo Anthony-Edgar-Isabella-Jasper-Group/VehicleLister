@@ -12,14 +12,16 @@
                 </c:when>
                 <c:otherwise>
                     <li class="nav-item">
+                        <a class="nav-link" href="/profile">View Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="createAd" href="/ads/create">Create Ad</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </c:otherwise>
             </c:choose>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/ads/create">Create Ad</a>
-            </li>
         </ul>
         <form class="d-flex">
             <input class="form-control mr-2 mt-3" type="search" placeholder="Search" aria-label="Search">

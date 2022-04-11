@@ -6,19 +6,66 @@
     </jsp:include>
 </head>
 <body>
-    <div class="container">
-        <h1>Create a new Ad</h1>
-        <form action="/ads/create" method="post">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input id="title" name="title" class="form-control" type="text">
+    <jsp:include page="/WEB-INF/partials/navbar.jsp" />
+    <div class="modal fade" id="createAdModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createAdTitle">Create Ad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/ads/create" method="post">
+                        <div class="form-group">
+                            <label for="make">Make</label>
+                            <input id="make" name="make" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="model">Model</label>
+                            <input id="model" name="model" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Year</label>
+                            <input id="year" name="year" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="color">Color</label>
+                            <input id="color" name="color" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input id="price" name="price" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="mileage">Mileage</label>
+                            <input id="mileage" name="mileage" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                            <input id="type" name="type" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" class="form-control" type="text"></textarea>
+                        </div>
+                        <input type="submit" class="btn btn-primary">
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" class="form-control" type="text"></textarea>
-            </div>
-            <input type="submit" class="btn btn-block btn-primary">
-        </form>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script>
+        "use strict";
+        let createAdButton = document.getElementById("createAd");
+        createAdButton.addEventListener("click", function() {
+            $("#createAdModal").show();
+        })
+
+    </script>
 </body>
 </html>
