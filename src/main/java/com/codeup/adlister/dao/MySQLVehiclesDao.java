@@ -40,10 +40,10 @@ public class MySQLVehiclesDao implements Vehicles {
         }
     }
 
-    public List<Vehicle> findByUser_id(int user_id) {
+    public List<Vehicle> findByUser_Id(long user_id) {
         PreparedStatement statement = null;
         String user = "" + user_id;
-        String query = "SELECT * FROM vehicles WHERE make_id = ?";
+        String query = "SELECT * FROM vehicles WHERE user_id = ?";
         try {
             statement = connection.prepareStatement(query);
             statement.setString(1, user);
