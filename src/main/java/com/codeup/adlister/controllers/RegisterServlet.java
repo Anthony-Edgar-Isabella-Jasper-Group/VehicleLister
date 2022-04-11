@@ -29,8 +29,13 @@ public class RegisterServlet extends HttpServlet {
             || (! password.equals(passwordConfirmation));
 
         if (inputHasErrors) {
+            request.getSession().setAttribute("registerUsername", username);
+            request.getSession().setAttribute("registerEmail", email);
             response.sendRedirect("/register");
             return;
+        } else {
+            request.removeAttribute("registerUsername");
+            request.removeAttribute("registerEmail");
         }
 
         // create and save a new user
