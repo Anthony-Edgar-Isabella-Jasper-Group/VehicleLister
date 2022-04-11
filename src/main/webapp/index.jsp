@@ -3,7 +3,7 @@
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="Welcome Vehicle Lister!" />
+        <jsp:param name="title" value="Welcome To Vehicle Lister!" />
     </jsp:include>
 </head>
 <body>
