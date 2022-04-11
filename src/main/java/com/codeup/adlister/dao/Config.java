@@ -6,7 +6,7 @@ public class Config {
     }
 
     public String getUsername() {
-        return "root";
+        return "vehiclelistuser";
     }
 
     public String getPassword() {
