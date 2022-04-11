@@ -8,7 +8,7 @@
     </c:when>
 
     <c:otherwise>
- test
+
     </c:otherwise>
 
 </c:choose>
