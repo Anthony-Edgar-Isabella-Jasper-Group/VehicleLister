@@ -40,6 +40,20 @@ public class MySQLVehiclesDao implements Vehicles {
         }
     }
 
+    public List<Vehicle> findByUser_id(int user_id) {
+        PreparedStatement statement = null;
+        String user = "" + user_id;
+        String query = "SELECT * FROM vehicles WHERE make_id = ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, user);
+            ResultSet rs = statement.executeQuery();
+            return createVehicleAdsFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting vehicles from database with MAKE_ID", e);
+        }
+    }
+
     @Override
     public List<Vehicle> findByMake(int make_id) {
         PreparedStatement statement = null;

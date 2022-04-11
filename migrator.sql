@@ -18,25 +18,32 @@ CREATE TABLE users (
 CREATE TABLE usages (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(30),
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (name)
 );
 
 CREATE TABLE makes (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(30),
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (name)
+
 );
 
 CREATE TABLE types (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR (20),
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (name)
+
 );
 
 CREATE TABLE colors (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR (20),
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (name)
+
 );
 
 CREATE TABLE vehicles (
