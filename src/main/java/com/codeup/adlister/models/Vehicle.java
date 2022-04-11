@@ -3,38 +3,53 @@ package com.codeup.adlister.models;
 public class Vehicle {
     private long id;
     private long user_id;
-    private int make_id;
+    private String make;
     private String model;
     private short year;
-    private short color;
+    private String color;
     private float price;
     private int mileage;
-    private byte type_id;
+    private String type;
     private String description;
 
-    public Vehicle(long id, long user_id, int make_id, String model, short year, short color, float price, int mileage, byte type_id, String description){
+    public Vehicle(long id, long user_id, String make, String model, short year, String color, float price, int mileage, String type, String description) {
         this.id = id;
         this.user_id = user_id;
-        this.make_id = make_id;
+        this.make = make;
         this.model = model;
         this.year = year;
         this.color = color;
         this.price = price;
         this.mileage = mileage;
-        this.type_id = type_id;
+        this.type = type;
         this.description = description;
     }
 
-    public void setId(long id){
+    public Vehicle(long user_id, String make, String model, short year, String color, float price, int mileage, String type, String description) {
+        this.user_id = user_id;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.color = color;
+        this.price = price;
+        this.mileage = mileage;
+        this.type = type;
+        this.description = description;
+    }
+
+    public void setId(long id) {
         this.id = id;
     }
-    public void setUser_id(long user_id){
+
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
-    public void setMake_id(int make_id){
-        this.make_id = make_id;
+
+    public void setMake(String make) {
+        this.make = make;
     }
-    public void setModel(String model){
+
+    public void setModel(String model) {
         this.model = model;
     }
 
@@ -42,7 +57,7 @@ public class Vehicle {
         this.year = year;
     }
 
-    public void setColor(short color) {
+    public void setColor(String color) {
         this.color = color;
     }
 
@@ -54,8 +69,8 @@ public class Vehicle {
         this.mileage = mileage;
     }
 
-    public void setType_id(byte type_id) {
-        this.type_id = type_id;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setDescription(String description) {
@@ -70,8 +85,8 @@ public class Vehicle {
         return user_id;
     }
 
-    public int getMake_id() {
-        return make_id;
+    public String getMake() {
+        return make;
     }
 
     public String getModel() {
@@ -82,7 +97,7 @@ public class Vehicle {
         return year;
     }
 
-    public short getColor() {
+    public String getColor() {
         return color;
     }
 
@@ -94,8 +109,8 @@ public class Vehicle {
         return mileage;
     }
 
-    public byte getType_id() {
-        return type_id;
+    public String getType() {
+        return type;
     }
 
     public String getDescription() {

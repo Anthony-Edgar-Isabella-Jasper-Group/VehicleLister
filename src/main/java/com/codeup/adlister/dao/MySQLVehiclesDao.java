@@ -4,6 +4,7 @@ import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.Vehicle;
 
 import java.util.List;
+
 import com.mysql.cj.jdbc.Driver;
 
 import java.io.FileInputStream;
@@ -13,20 +14,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLVehiclesDao implements Vehicles{
+public class MySQLVehiclesDao implements Vehicles {
     private Connection connection = null;
 
 
-    public MySQLVehiclesDao(Config config){
-        try{
+    public MySQLVehiclesDao(Config config) {
+        try {
             DriverManager.registerDriver(new Driver());
-            connection = DriverManager.getConnection(
-                    config.getUrl(),
-                    config.getUsername(),
-                    config.getPassword()
-            );
+            connection = DriverManager.getConnection(config.getUrl(), config.getUsername(), config.getPassword());
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
         }
     }
@@ -147,18 +144,99 @@ public class MySQLVehiclesDao implements Vehicles{
         }
     }
 
+    public int getMakeId(String make) {
+        PreparedStatement statement;
+        String query = "SELECT id FROM makes WHERE name = ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, make);
+            ResultSet rs = statement.executeQuery();
+            return rs.getInt("id");
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding make id from database");
+        }
+    }
+
+    public String getMake(int id) {
+        PreparedStatement statement;
+        String query = "SELECT name FROM makes WHERE id = ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            return rs.getString("name");
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding make String from database");
+        }
+    }
+
+    public int getColorId(String color) {
+        PreparedStatement statement;
+        String query = "SELECT id FROM colors WHERE name = ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, color);
+            ResultSet rs = statement.executeQuery();
+            return rs.getInt("id");
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding color id from database");
+        }
+    }
+
+    public String getColor(int id) {
+        PreparedStatement statement;
+        String query = "SELECT name FROM colors WHERE id = ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            return rs.getString("name");
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding color String from database");
+        }
+    }
+
+    public int getTypeId(String type) {
+        PreparedStatement statement;
+        String query = "SELECT id FROM types WHERE name = ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, type);
+            ResultSet rs = statement.executeQuery();
+            return rs.getInt("id");
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding type id from database");
+        }
+    }
+
+    public String getType(int id) {
+        PreparedStatement statement;
+        String query = "SELECT name FROM types WHERE id = ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            return rs.getString("name");
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding type String from database");
+        }
+    }
+
     @Override
     public Long insert(Vehicle vehicle) {
         PreparedStatement statement = null;
-        String query = "INSERT INTO vehicles(user_id, make_id, model, year, color, price, mileage, type_id, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO vehicles(user_id, make_id, model, year, color_id, price, mileage, type_id, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String user_id = "" + vehicle.getUser_id();
-        String make_id = "" + vehicle.getMake_id();
+        String make_id = "" + getMakeId(vehicle.getMake());
         String year = "" + vehicle.getYear();
-        String color = "" + vehicle.getColor();
+        String color = "" + getColorId(vehicle.getColor());
         String price = "" + vehicle.getPrice();
         String mileage = "" + vehicle.getMileage();
-        String type_id = "" + vehicle.getType_id();
-        try{
+        String type_id = "" + getTypeId(vehicle.getType());
+        try {
             statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, user_id);
             statement.setString(2, make_id);
@@ -174,7 +252,7 @@ public class MySQLVehiclesDao implements Vehicles{
             rs.next();
             return rs.getLong(1);
         } catch (SQLException e) {
-            throw new RuntimeException("Error addding Vehicle to vehicle database!", e);
+            throw new RuntimeException("Error adding Vehicle to vehicle database!", e);
         }
     }
 
@@ -187,17 +265,6 @@ public class MySQLVehiclesDao implements Vehicles{
     }
 
     private Vehicle extractVehicle(ResultSet rs) throws SQLException {
-        return new Vehicle(
-                rs.getLong("id"),
-                rs.getLong("user_id"),
-                rs.getInt("make_id"),
-                rs.getString("model"),
-                rs.getShort("year"),
-                rs.getShort("color"),
-                rs.getFloat("price"),
-                rs.getInt("mileage"),
-                rs.getByte("type_id"),
-                rs.getString("description")
-        );
+        return new Vehicle(rs.getLong("id"), rs.getLong("user_id"), getMake(rs.getInt("make_id")), rs.getString("model"), rs.getShort("year"), getColor(rs.getInt("color_id")), rs.getFloat("price"), rs.getInt("mileage"), getType(rs.getInt("type_id")), rs.getString("description"));
     }
 }
