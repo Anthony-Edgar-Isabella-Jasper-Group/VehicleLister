@@ -50,23 +50,23 @@
                     </div>
                     <div class="modal-body">
                         <form action="/edit-vehicle" method="POST" id="editForm">
-                            <label><input type="text" id="editVehicleID" name="editVehicleID"></label><br>
+                            <label><input type="text" id="editVehicleID" name="editVehicleID" class="d-none"></label><br>
                             <label for="editMake">Edit Make</label><br>
-                            <input type="text" id="editMake" name="editMake"><br>
+                            <input type="text" id="editMake" name="editMake" class="form-control"><br>
                             <label for="editModel">Edit Model</label><br>
-                            <input type="text" id="editModel" name="editModel"><br>
+                            <input type="text" id="editModel" name="editModel" class="form-control"><br>
                             <label for="editYear">Edit Year</label><br>
-                            <input type="text" id="editYear" name="editYear"><br>
+                            <input type="text" id="editYear" name="editYear" class="form-control"><br>
                             <label for="editColor">Edit Color</label><br>
-                            <input type="text" id="editColor" name="editColor"><br>
+                            <input type="text" id="editColor" name="editColor" class="form-control"><br>
                             <label for="editPrice">Edit Price</label><br>
-                            <input type="text" id="editPrice" name="editPrice"><br>
+                            <input type="text" id="editPrice" name="editPrice" class="form-control"><br>
                             <label for="editMileage">Edit Mileage</label><br>
-                            <input type="text" id="editMileage" name="editMileage"><br>
+                            <input type="text" id="editMileage" name="editMileage" class="form-control"><br>
                             <label for="editType">Edit Type</label><br>
-                            <input type="text" id="editType" name="editType"><br>
+                            <input type="text" id="editType" name="editType" class="form-control"><br>
                             <label for="editDescription">Edit Description</label><br>
-                            <input type="text" id="editDescription" name="editDescription"><br>
+                            <input type="text" id="editDescription" name="editDescription" class="form-control"><br>
                             <label><input type="text" id="editUsername" name="editUsername" class="invisible d-none"></label>
                             <label><input type="text" id="editEmail" name="editEmail" class="invisible d-none"></label>
 
@@ -112,6 +112,8 @@
                 vehicleCardBody.setAttribute("class", "card-body");
                 vehicleCardBody.innerHTML = "<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
                     "<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
+                let vehicleCardFooter = document.createElement("div")
+                vehicleCardFooter.setAttribute("class", "card-footer d-flex justify-content-around");
                 let editButton = document.createElement("button");
                 editButton.setAttribute("type", "button");
                 editButton.setAttribute("class", "btn btn-primary mx-1");
@@ -132,7 +134,7 @@
                 });
                 editButton.innerText= "Edit Ad";
                 vehicleCard.appendChild(vehicleCardBody);
-                vehicleCard.appendChild(editButton);
+                vehicleCardFooter.appendChild(editButton);
                 let deleteButton = document.createElement("button");
                 deleteButton.setAttribute("type", "button");
                 deleteButton.setAttribute("class", "btn btn-primary mx-1");
@@ -142,9 +144,9 @@
                     $('#deleteVehicleID').val(vehicle.id);
                 });
                 deleteButton.innerText= "Delete";
-                vehicleCard.appendChild(deleteButton);
+                vehicleCardFooter.appendChild(deleteButton);
+                vehicleCard.append(vehicleCardFooter)
                 document.getElementById("vehicles").appendChild(vehicleCard);
-
               }));
         </script>
 

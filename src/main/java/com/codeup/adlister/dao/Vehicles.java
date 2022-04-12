@@ -26,4 +26,9 @@ public interface Vehicles {
     List<Vehicle> findByUser_Id(long user_id);
 
     Long insert(Vehicle vehicle);
+
+    void delete(Long id);
+
+    void edit(Vehicle vehicle);
+
 }
