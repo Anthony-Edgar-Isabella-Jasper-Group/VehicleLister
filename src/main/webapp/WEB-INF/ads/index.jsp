@@ -9,7 +9,7 @@
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp"/>
     <div class="container">
-        <h1>Here Are all the ads!</h1>
+        <h1>Vehicles For Sale</h1>
         <div id="vehicles"></div>
     </div>
     <div class="modal fade" id="moreInfo" tabindex="-1" aria-hidden="true">
@@ -50,12 +50,44 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
 		"use strict";
+		let displayVehicles = vehiclesList => {
+			vehiclesList.forEach(vehicle => {
+				let vehicleCard = document.createElement("div");
+				vehicleCard.setAttribute("class", "card");
+				vehicleCard.setAttribute("style", "width: 18rem");
+				let vehicleCardBody = document.createElement("div");
+				vehicleCardBody.setAttribute("class", "card-body");
+				vehicleCardBody.innerHTML = "<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
+					"<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
+				let newButton = document.createElement("button");
+				newButton.setAttribute("type", "button");
+				newButton.setAttribute("class", "btn btn-primary");
+				newButton.setAttribute("data-toggle", "modal");
+				newButton.setAttribute("data-target", "#moreInfo");
+				newButton.addEventListener("click", () => {
+					$('#vehicleTitle').text(vehicle.year + " " + vehicle.make + " " + vehicle.model);
+					$('#vehicleUsername').text(vehicle.username);
+					$('#vehicleEmail').text(vehicle.email);
+					$('#vehicleColor').text(vehicle.color);
+					$('#vehiclePrice').text(vehicle.price);
+					$('#vehicleMileage').text(vehicle.mileage);
+					$('#vehicleType').text(vehicle.type);
+					$('#vehicleDescription').text(vehicle.description);
+				});
+				newButton.innerText = "More Info";
+				vehicleCardBody.appendChild(newButton);
+				vehicleCard.appendChild(vehicleCardBody);
+				document.getElementById("vehicles").appendChild(vehicleCard);
+			});
+		}
 		let vehiclesArray = [];
+		let makesArray = [];
+
 		<c:forEach var="vehicle" items="${ads}">
 		vehiclesArray.push({
 			id: ${vehicle.id},
 			username: "${vehicle.username}",
-            email: "${vehicle.email}",
+			email: "${vehicle.email}",
 			make: "${vehicle.make}",
 			model: "${vehicle.model}",
 			year: ${vehicle.year},
@@ -66,29 +98,7 @@
 			description: "${vehicle.description}"
 		});
 		</c:forEach>
-		vehiclesArray.forEach((vehicle => {
-			let newVehicle = document.createElement("div");
-			newVehicle.innerHTML = "<h3>" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h3>" +
-				"<p>" + vehicle.description + "</p>";
-            let newButton = document.createElement("button");
-			newButton.setAttribute("type", "button");
-			newButton.setAttribute("class", "btn btn-primary");
-			newButton.setAttribute("data-toggle", "modal");
-			newButton.setAttribute("data-target", "#moreInfo");
-			newButton.addEventListener("click", () => {
-				$('#vehicleTitle').text(vehicle.year + " " + vehicle.make + " " + vehicle.model);
-				$('#vehicleUsername').text(vehicle.username);
-				$('#vehicleEmail').text(vehicle.email);
-				$('#vehicleColor').text(vehicle.color);
-				$('#vehiclePrice').text(vehicle.price);
-				$('#vehicleMileage').text(vehicle.mileage);
-				$('#vehicleType').text(vehicle.type);
-				$('#vehicleDescription').text(vehicle.description);
-			});
-			newButton.innerText= "More Info";
-			newVehicle.appendChild(newButton);
-			document.getElementById("vehicles").appendChild(newVehicle);
-		}));
+		displayVehicles(vehiclesArray);
     </script>
 </body>
 </html>
