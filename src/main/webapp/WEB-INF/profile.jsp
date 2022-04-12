@@ -25,11 +25,22 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p id="vehicleColor"></p>
-                        <p id="vehiclePrice"></p>
-                        <p id="vehicleMileage"></p>
-                        <p id="vehicleType"></p>
-                        <p id="vehicleDescription"></p>
+                        <dl>
+                            <dt>Posted By</dt>
+                            <dd id="vehicleUsername"></dd>
+                            <dt>Email</dt>
+                            <dd id="vehicleEmail"></dd>
+                            <dt>Color</dt>
+                            <dd id="vehicleColor"></dd>
+                            <dt>Price</dt>
+                            <dd id="vehiclePrice"></dd>
+                            <dt>Mileage</dt>
+                            <dd id="vehicleMileage"></dd>
+                            <dt>Type</dt>
+                            <dd id="vehicleType"></dd>
+                            <dt>Description</dt>
+                            <dd id="vehicleDescription"></dd>
+                        </dl>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -50,7 +61,8 @@
             <c:forEach var="vehicle" items="${ads}">
             vehiclesArray.push({
                 id: ${vehicle.id},
-                user_id: ${vehicle.user_id},
+                username: "${vehicle.username}",
+                email: "${vehicle.email}",
                 make: "${vehicle.make}",
                 model: "${vehicle.model}",
                 year: ${vehicle.year},
@@ -72,6 +84,8 @@
                 newButton.setAttribute("data-target", "#moreInfo");
                 newButton.addEventListener("click", () => {
                     $('#vehicleTitle').text(vehicle.year + " " + vehicle.make + " " + vehicle.model);
+                    $('#vehicleUsername').text(vehicle.username);
+                    $('#vehicleEmail').text(vehicle.email);
                     $('#vehicleColor').text("Color: " + vehicle.color);
                     $('#vehiclePrice').text("Price: " + vehicle.price);
                     $('#vehicleMileage').text("Mileage: " + vehicle.mileage);
@@ -83,8 +97,6 @@
                 document.getElementById("vehicles").appendChild(newVehicle);
             }));
         </script>
-
-
 
     </body>
 </html>
