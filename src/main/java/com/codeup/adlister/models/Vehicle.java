@@ -2,7 +2,8 @@ package com.codeup.adlister.models;
 
 public class Vehicle {
     private long id;
-    private long user_id;
+    private String username;
+    private String email;
     private String make;
     private String model;
     private short year;
@@ -12,9 +13,10 @@ public class Vehicle {
     private String type;
     private String description;
 
-    public Vehicle(long id, long user_id, String make, String model, short year, String color, float price, int mileage, String type, String description) {
+    public Vehicle(long id, String username, String email, String make, String model, short year, String color, float price, int mileage, String type, String description) {
         this.id = id;
-        this.user_id = user_id;
+        this.username = username;
+        this.email = email;
         this.make = make;
         this.model = model;
         this.year = year;
@@ -25,8 +27,9 @@ public class Vehicle {
         this.description = description;
     }
 
-    public Vehicle(long user_id, String make, String model, short year, String color, float price, int mileage, String type, String description) {
-        this.user_id = user_id;
+    public Vehicle(String username, String email, String make, String model, short year, String color, float price, int mileage, String type, String description) {
+        this.username = username;
+        this.email = email;
         this.make = make;
         this.model = model;
         this.year = year;
@@ -41,8 +44,12 @@ public class Vehicle {
         this.id = id;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setMake(String make) {
@@ -81,8 +88,12 @@ public class Vehicle {
         return id;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getMake() {
