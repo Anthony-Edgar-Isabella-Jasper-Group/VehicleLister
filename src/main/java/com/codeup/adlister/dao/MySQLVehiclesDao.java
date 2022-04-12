@@ -52,7 +52,7 @@ public class MySQLVehiclesDao implements Vehicles {
     }
 
     @Override
-    public List<Vehicle> findByUser_id(long user_id) {
+    public List<Vehicle> findByUser_Id(long user_id) {
         PreparedStatement statement = null;
         String user = "" + user_id;
         String query = "SELECT * FROM vehicles WHERE user_id = ?";
@@ -169,6 +169,8 @@ public class MySQLVehiclesDao implements Vehicles {
             throw new RuntimeException("Error getting vehicles from database with TYPE_ID", e);
         }
     }
+
+
 
     public int getMakeId(String make) {
         PreparedStatement statement;
