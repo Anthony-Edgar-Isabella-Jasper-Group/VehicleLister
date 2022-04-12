@@ -50,23 +50,23 @@
                     </div>
                     <div class="modal-body">
                         <form action="/edit-vehicle" method="POST" id="editForm">
-                            <label><input type="text" id="editVehicleID" name="editVehicleID"></label><br>
+                            <label><input class="form-control" type="text" id="editVehicleID" name="editVehicleID"></label><br>
                             <label for="editMake">Edit Make</label><br>
-                            <input type="text" id="editMake" name="editMake" required><br>
+                            <input class="form-control" type="text" id="editMake" name="editMake" required><br>
                             <label for="editModel">Edit Model</label><br>
-                            <input type="text" id="editModel" name="editModel required"><br>
+                            <input class="form-control" type="text" id="editModel" name="editModel required"><br>
                             <label for="editYear">Edit Year</label><br>
-                            <input type="text" id="editYear" name="editYear required"><br>
+                            <input class="form-control" type="text" id="editYear" name="editYear required"><br>
                             <label for="editColor">Edit Color</label><br>
-                            <input type="text" id="editColor" name="editColor required"><br>
+                            <input class="form-control" type="text" id="editColor" name="editColor required"><br>
                             <label for="editPrice">Edit Price</label><br>
-                            <input type="text" id="editPrice" name="editPrice required"><br>
+                            <input class="form-control" type="text" id="editPrice" name="editPrice required"><br>
                             <label for="editMileage">Edit Mileage</label><br>
-                            <input type="text" id="editMileage" name="editMileage required"><br>
+                            <input class="form-control" type="text" id="editMileage" name="editMileage required"><br>
                             <label for="editType">Edit Type</label><br>
-                            <input type="text" id="editType" name="editType required"><br>
+                            <input class="form-control" type="text" id="editType" name="editType required"><br>
                             <label for="editDescription">Edit Description</label><br>
-                            <input type="text" id="editDescription" name="editDescription"><br>
+                            <input class="form-control" type="text" id="editDescription" name="editDescription"><br>
                             <label><input type="text" id="editUsername" name="editUsername" class="invisible d-none"></label>
                             <label><input type="text" id="editEmail" name="editEmail" class="invisible d-none"></label>
 
