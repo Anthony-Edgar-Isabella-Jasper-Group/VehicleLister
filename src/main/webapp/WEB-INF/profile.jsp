@@ -8,7 +8,7 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-        <h1 style="text-align: center">${username}</h1>
+        <h1 style="text-align: center">Hello, ${username}!</h1>
         <h3 style="text-align: center">Your Ads</h3>
         <div class="container">
             <div id="vehicles" class="row">
@@ -74,9 +74,13 @@
             });
             </c:forEach>
             vehiclesArray.forEach((vehicle => {
-                let newVehicle = document.createElement("div");
-                newVehicle.innerHTML ="<div class=\"col-3\">" + "<h3>" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h3>" +
-                    "<p>" + vehicle.description + "</p>" + "</div>";
+                let vehicleCard = document.createElement("div");
+                vehicleCard.setAttribute("class", "card");
+                vehicleCard.setAttribute("style", "width: 18rem");
+                let vehicleCardBody = document.createElement("div");
+                vehicleCardBody.setAttribute("class", "card-body");
+                vehicleCardBody.innerHTML = "<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
+                    "<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
                 let newButton = document.createElement("button");
                 newButton.setAttribute("type", "button");
                 newButton.setAttribute("class", "btn btn-primary");
@@ -86,15 +90,16 @@
                     $('#vehicleTitle').text(vehicle.year + " " + vehicle.make + " " + vehicle.model);
                     $('#vehicleUsername').text(vehicle.username);
                     $('#vehicleEmail').text(vehicle.email);
-                    $('#vehicleColor').text("Color: " + vehicle.color);
-                    $('#vehiclePrice').text("Price: " + vehicle.price);
-                    $('#vehicleMileage').text("Mileage: " + vehicle.mileage);
-                    $('#vehicleType').text("Type: " + vehicle.type);
-                    $('#vehicleDescription').text("Description: " + vehicle.description);
+                    $('#vehicleColor').text(vehicle.color);
+                    $('#vehiclePrice').text(vehicle.price);
+                    $('#vehicleMileage').text(vehicle.mileage);
+                    $('#vehicleType').text(vehicle.type);
+                    $('#vehicleDescription').text(vehicle.description);
                 });
-                newButton.innerText= "More Info";
-                newVehicle.appendChild(newButton);
-                document.getElementById("vehicles").appendChild(newVehicle);
+                newButton.innerText = "More Info";
+                vehicleCardBody.appendChild(newButton);
+                vehicleCard.appendChild(vehicleCardBody);
+                document.getElementById("vehicles").appendChild(vehicleCard);
             }));
         </script>
 

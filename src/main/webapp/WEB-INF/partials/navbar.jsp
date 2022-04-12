@@ -26,10 +26,6 @@
                 </c:otherwise>
             </c:choose>
         </ul>
-        <form class="d-flex">
-            <input class="form-control mr-2 mt-3" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-dark mt-3" type="submit">Search</button>
-        </form>
     </div>
 </nav>
 
