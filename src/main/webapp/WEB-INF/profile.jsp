@@ -8,7 +8,7 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-        <h1 style="text-align: center">${username}</h1>
+        <h1 style="text-align: center">Hello, ${username}!</h1>
         <h3 style="text-align: center">Your Ads</h3>
         <div class="container">
             <div id="vehicles" class="row">
@@ -105,9 +105,13 @@
             });
             </c:forEach>
             vehiclesArray.forEach((vehicle => {
-                let newVehicle = document.createElement("div");
-                newVehicle.innerHTML ="<div class=\"col-3\">" + "<h3>" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h3>" +
-                    "<p>" + vehicle.description + "</p>" + "</div>";
+                let vehicleCard = document.createElement("div");
+                vehicleCard.setAttribute("class", "card");
+                vehicleCard.setAttribute("style", "width: 18rem");
+                let vehicleCardBody = document.createElement("div");
+                vehicleCardBody.setAttribute("class", "card-body");
+                vehicleCardBody.innerHTML = "<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
+                    "<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
                 let editButton = document.createElement("button");
                 editButton.setAttribute("type", "button");
                 editButton.setAttribute("class", "btn btn-primary mx-1");
@@ -127,7 +131,7 @@
                     $('#editEmail').val(vehicle.email);
                 });
                 editButton.innerText= "Edit Ad";
-                newVehicle.appendChild(editButton);
+                vehicleCard.appendChild(editButton);
                 let deleteButton = document.createElement("button");
                 deleteButton.setAttribute("type", "button");
                 deleteButton.setAttribute("class", "btn btn-primary mx-1");
@@ -137,10 +141,10 @@
                     $('#deleteVehicleID').val(vehicle.id);
                 });
                 deleteButton.innerText= "Delete";
-                newVehicle.appendChild(deleteButton);
-                document.getElementById("vehicles").appendChild(newVehicle);
+                vehicleCard.appendChild(deleteButton);
+                document.getElementById("vehicles").appendChild(vehicleCard);
 
-            }));
+              }));
         </script>
 
     </body>

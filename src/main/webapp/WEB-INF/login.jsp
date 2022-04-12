@@ -8,7 +8,7 @@
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
     <div class="container w-50">
-        <h1 class="text-center mt-5 mb-5">Log In to your Vehiclelister Account</h1>
+        <h1 class="text-center mt-5 mb-5">Log in to your Vehiclelister Account</h1>
         <form action="/login" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
