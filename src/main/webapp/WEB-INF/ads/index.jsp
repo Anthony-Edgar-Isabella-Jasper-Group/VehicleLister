@@ -8,7 +8,6 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp"/>
-
     <div class="container">
         <h1>Here Are all the ads!</h1>
         <div id="vehicles"></div>
@@ -23,11 +22,22 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p id="vehicleColor"></p>
-                    <p id="vehiclePrice"></p>
-                    <p id="vehicleMileage"></p>
-                    <p id="vehicleType"></p>
-                    <p id="vehicleDescription"></p>
+                    <dl>
+                        <dt>Posted By</dt>
+                        <dd id="vehicleUsername"></dd>
+                        <dt>Email</dt>
+                        <dd id="vehicleEmail"></dd>
+                        <dt>Color</dt>
+                        <dd id="vehicleColor"></dd>
+                        <dt>Price</dt>
+                        <dd id="vehiclePrice"></dd>
+                        <dt>Mileage</dt>
+                        <dd id="vehicleMileage"></dd>
+                        <dt>Type</dt>
+                        <dd id="vehicleType"></dd>
+                        <dt>Description</dt>
+                        <dd id="vehicleDescription"></dd>
+                    </dl>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -44,7 +54,8 @@
 		<c:forEach var="vehicle" items="${ads}">
 		vehiclesArray.push({
 			id: ${vehicle.id},
-			user_id: ${vehicle.user_id},
+			username: "${vehicle.username}",
+            email: "${vehicle.email}",
 			make: "${vehicle.make}",
 			model: "${vehicle.model}",
 			year: ${vehicle.year},
@@ -66,11 +77,13 @@
 			newButton.setAttribute("data-target", "#moreInfo");
 			newButton.addEventListener("click", () => {
 				$('#vehicleTitle').text(vehicle.year + " " + vehicle.make + " " + vehicle.model);
-				$('#vehicleColor').text("Color: " + vehicle.color);
-				$('#vehiclePrice').text("Price: " + vehicle.price);
-				$('#vehicleMileage').text("Mileage: " + vehicle.mileage);
-				$('#vehicleType').text("Type: " + vehicle.type);
-				$('#vehicleDescription').text("Description: " + vehicle.description);
+				$('#vehicleUsername').text(vehicle.username);
+				$('#vehicleEmail').text(vehicle.email);
+				$('#vehicleColor').text(vehicle.color);
+				$('#vehiclePrice').text(vehicle.price);
+				$('#vehicleMileage').text(vehicle.mileage);
+				$('#vehicleType').text(vehicle.type);
+				$('#vehicleDescription').text(vehicle.description);
 			});
 			newButton.innerText= "More Info";
 			newVehicle.appendChild(newButton);
