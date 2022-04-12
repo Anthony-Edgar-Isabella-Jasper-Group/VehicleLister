@@ -83,8 +83,5 @@
                 document.getElementById("vehicles").appendChild(newVehicle);
             }));
         </script>
-
-
-
     </body>
 </html>
