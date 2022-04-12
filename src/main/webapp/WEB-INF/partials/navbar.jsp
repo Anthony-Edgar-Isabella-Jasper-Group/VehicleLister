@@ -4,9 +4,6 @@
     <a class="navbar-brand" href="/">Vehicle Lister</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/ads">Ad Page</a>
-            </li>
             <c:choose>
                 <c:when test="${sessionScope.user.username == null}">
                     <li class="nav-item">

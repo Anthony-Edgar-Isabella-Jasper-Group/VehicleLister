@@ -28,6 +28,7 @@
             </div>
             <input type="submit" class="btn btn-secondary btn-block">
         </form>
+        <div class="text-center"><a href="/login">Already a user? Log in!</a></div>
     </div>
 </body>
 </html>

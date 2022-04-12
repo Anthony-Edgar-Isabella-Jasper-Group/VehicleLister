@@ -8,12 +8,14 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-        <div class="container">
-            <div class="container text-center">
-                <h2 class="mt-5">Have a car, truck or any vehicle you want to sell? <br> Create a profile and start listing your vehicle</h2>
-                <a class="btn btn-secondary btn-lg mt-5" href="/register" role="button">Sign up!</a>
+        <c:if test="${sessionScope.user.username == null}">
+            <div class="container">
+                <div class="container text-center">
+                    <h2 class="mt-5">Have a car, truck or any vehicle you want to sell? <br> Create a profile and start listing your vehicle</h2>
+                    <a class="btn btn-secondary btn-lg mt-5" href="/register" role="button">Sign up!</a>
+                </div>
             </div>
-        </div>
+        </c:if>
         <div class="container">
             <h1 class="mt-4 text-center">Browse ads</h1>
             <form action="/" method="post">
