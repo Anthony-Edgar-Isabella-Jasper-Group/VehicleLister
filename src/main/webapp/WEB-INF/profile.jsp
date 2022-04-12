@@ -131,6 +131,7 @@
                     $('#editEmail').val(vehicle.email);
                 });
                 editButton.innerText= "Edit Ad";
+                vehicleCard.appendChild(vehicleCardBody);
                 vehicleCard.appendChild(editButton);
                 let deleteButton = document.createElement("button");
                 deleteButton.setAttribute("type", "button");
