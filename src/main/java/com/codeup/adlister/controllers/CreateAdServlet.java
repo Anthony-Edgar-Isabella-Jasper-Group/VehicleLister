@@ -14,14 +14,6 @@ import java.io.IOException;
 
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 public class CreateAdServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/login");
-            return;
-        }
-        request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
-    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = (User) request.getSession().getAttribute("user");
         Vehicle ad = new Vehicle(user.getUsername(), user.getEmail(), request.getParameter("make"), request.getParameter("model"), Short.parseShort(request.getParameter("year")), request.getParameter("color"), Float.parseFloat(request.getParameter("price")), Integer.parseInt(request.getParameter("mileage")), request.getParameter("type"), request.getParameter("description"));

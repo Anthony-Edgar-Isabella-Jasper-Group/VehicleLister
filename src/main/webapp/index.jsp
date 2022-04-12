@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="container">
-            <h1 class="mt-4 text-center">Here are all the ads!</h1>
+            <h1 class="mt-4 text-center">Browse ads</h1>
             <div id="vehicles" class="row">
             </div>
         </div>
