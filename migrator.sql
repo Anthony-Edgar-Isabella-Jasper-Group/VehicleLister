@@ -8,9 +8,9 @@ USE vehicle_list;
 CREATE TABLE users
 (
     id       INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    username VARCHAR(30),
-    email    VARCHAR(50),
-    password VARCHAR(255),
+    username VARCHAR(30) NOT NULL,
+    email    VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (username, email)
 );
@@ -18,7 +18,7 @@ CREATE TABLE users
 CREATE TABLE purposes
 (
     id      INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    purpose VARCHAR(30),
+    purpose VARCHAR(30) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (purpose)
 );
@@ -26,7 +26,7 @@ CREATE TABLE purposes
 CREATE TABLE makes
 (
     id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    make VARCHAR(30),
+    make VARCHAR(30) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (make)
 );
@@ -34,7 +34,7 @@ CREATE TABLE makes
 CREATE TABLE types
 (
     id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    type VARCHAR(20),
+    type VARCHAR(20) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (type)
 );
@@ -42,7 +42,7 @@ CREATE TABLE types
 CREATE TABLE colors
 (
     id    INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    color VARCHAR(20),
+    color VARCHAR(20) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (color)
 );
@@ -52,12 +52,12 @@ CREATE TABLE vehicles
     id          INT UNSIGNED NOT NULL AUTO_INCREMENT,
     user_id     INT UNSIGNED NOT NULL,
     make_id     INT UNSIGNED NOT NULL,
-    model       VARCHAR(20),
+    model       VARCHAR(20) NOT NULL,
     year        INT          NOT NULL,
     color_id    INT UNSIGNED,
     price       FLOAT        NOT NULL,
     mileage     INT          NOT NULL,
-    type_id     INT UNSIGNED,
+    type_id     INT UNSIGNED NOT NULL,
     description TEXT,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id),
@@ -69,8 +69,8 @@ CREATE TABLE vehicles
 CREATE TABLE vehicle_purposes
 (
     id         INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    vehicle_id INT UNSIGNED,
-    purpose_id INT UNSIGNED,
+    vehicle_id INT UNSIGNED NOT NULL,
+    purpose_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (vehicle_id) REFERENCES vehicles (id),
     FOREIGN KEY (purpose_id) REFERENCES purposes (id)
