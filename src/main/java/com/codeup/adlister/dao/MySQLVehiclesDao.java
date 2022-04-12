@@ -1,14 +1,17 @@
 package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Vehicle;
-import com.mysql.cj.jdbc.Driver;
 
 import java.util.List;
+
+import com.mysql.cj.jdbc.Driver;
+
 import java.sql.*;
 import java.util.ArrayList;
 
 public class MySQLVehiclesDao implements Vehicles {
     private Connection connection = null;
+
 
     public MySQLVehiclesDao(Config config) {
         try {
@@ -32,10 +35,27 @@ public class MySQLVehiclesDao implements Vehicles {
         }
     }
 
-    public List<Vehicle> findByUser_id(int user_id) {
+    @Override
+    public Vehicle findByVehicle_id(long id) {
+        PreparedStatement statement = null;
+        String user = "" + id;
+        String query = "SELECT * FROM vehicles WHERE id = ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, user);
+            ResultSet rs = statement.executeQuery();
+            List<Vehicle> list = createVehicleAdsFromResults(rs);
+            return list.get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting vehicles from database with ID", e);
+        }
+    }
+
+    @Override
+    public List<Vehicle> findByUser_id(long user_id) {
         PreparedStatement statement = null;
         String user = "" + user_id;
-        String query = "SELECT * FROM vehicles WHERE make_id = ?";
+        String query = "SELECT * FROM vehicles WHERE user_id = ?";
         try {
             statement = connection.prepareStatement(query);
             statement.setString(1, user);
@@ -150,47 +170,6 @@ public class MySQLVehiclesDao implements Vehicles {
         }
     }
 
-    public String getUsername(int id) {
-        PreparedStatement statement;
-        String query = "SELECT username FROM users WHERE id = ?";
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
-            ResultSet rs = statement.executeQuery();
-            rs.next();
-            return rs.getString("username");
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding username from users table.");
-        }
-    }
-
-    public int getUserId(String username) {
-        PreparedStatement statement;
-        String query = "SELECT id FROM users WHERE username = ?";
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setString(1, username);
-            ResultSet rs = statement.executeQuery();
-            return rs.getInt("id");
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding id from users table.");
-        }
-    }
-
-    public String getEmail(int id) {
-        PreparedStatement statement;
-        String query = "SELECT email FROM users WHERE id = ?";
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
-            ResultSet rs = statement.executeQuery();
-            rs.next();
-            return rs.getString("email");
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding email from users table.");
-        }
-    }
-
     public int getMakeId(String make) {
         PreparedStatement statement;
         String query = "SELECT id FROM makes WHERE name = ?";
@@ -276,7 +255,7 @@ public class MySQLVehiclesDao implements Vehicles {
     public Long insert(Vehicle vehicle) {
         PreparedStatement statement = null;
         String query = "INSERT INTO vehicles(user_id, make_id, model, year, color_id, price, mileage, type_id, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        String user_id = "" + getUserId(vehicle.getUsername());
+        String user_id = "" + vehicle.getUser_id();
         String make_id = "" + getMakeId(vehicle.getMake());
         String year = "" + vehicle.getYear();
         String color = "" + getColorId(vehicle.getColor());
@@ -312,6 +291,6 @@ public class MySQLVehiclesDao implements Vehicles {
     }
 
     private Vehicle extractVehicle(ResultSet rs) throws SQLException {
-        return new Vehicle(rs.getLong("id"), getUsername(rs.getInt("user_id")), getEmail(rs.getInt("user_id")), getMake(rs.getInt("make_id")), rs.getString("model"), rs.getShort("year"), getColor(rs.getInt("color_id")), rs.getFloat("price"), rs.getInt("mileage"), getType(rs.getInt("type_id")), rs.getString("description"));
+        return new Vehicle(rs.getLong("id"), rs.getLong("user_id"), getMake(rs.getInt("make_id")), rs.getString("model"), rs.getShort("year"), getColor(rs.getInt("color_id")), rs.getFloat("price"), rs.getInt("mileage"), getType(rs.getInt("type_id")), rs.getString("description"));
     }
 }
