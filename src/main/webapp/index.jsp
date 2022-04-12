@@ -16,6 +16,10 @@
         </div>
         <div class="container">
             <h1 class="mt-4 text-center">Browse ads</h1>
+            <form action="/" method="post">
+                <label for="makeSelect">Make <select name="makeSelect" id="makeSelect"></select></label>
+                <label for="typeSelect">Type <select name="typeSelect" id="typeSelect"></select></label>
+            </form>
             <div id="vehicles" class="row">
             </div>
         </div>
