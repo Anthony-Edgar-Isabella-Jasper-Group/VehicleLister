@@ -98,6 +98,29 @@
 			description: "${vehicle.description}"
 		});
 		</c:forEach>
+		vehiclesArray.forEach((vehicle => {
+			let newVehicle = document.createElement("div");
+			newVehicle.innerHTML = "<h3>" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h3>" +
+				"<p>" + vehicle.description + "</p>";
+            let newButton = document.createElement("button");
+			newButton.setAttribute("type", "button");
+			newButton.setAttribute("class", "btn btn-primary");
+			newButton.setAttribute("data-toggle", "modal");
+			newButton.setAttribute("data-target", "#moreInfo");
+			newButton.addEventListener("click", () => {
+				$('#vehicleTitle').text(vehicle.year + " " + vehicle.make + " " + vehicle.model);
+				$('#vehicleUsername').text(vehicle.username);
+				$('#vehicleEmail').text(vehicle.email);
+				$('#vehicleColor').text(vehicle.color);
+				$('#vehiclePrice').text(vehicle.price);
+				$('#vehicleMileage').text(vehicle.mileage);
+				$('#vehicleType').text(vehicle.type);
+				$('#vehicleDescription').text(vehicle.description);
+			});
+			newButton.innerText= "More Info";
+			newVehicle.appendChild(newButton);
+			document.getElementById("vehicles").appendChild(newVehicle);
+		}));
 		displayVehicles(vehiclesArray);
     </script>
 </body>
