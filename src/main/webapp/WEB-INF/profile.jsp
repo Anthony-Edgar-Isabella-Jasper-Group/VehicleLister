@@ -52,19 +52,19 @@
                         <form action="/edit-vehicle" method="POST" id="editForm">
                             <label><input type="text" id="editVehicleID" name="editVehicleID"></label><br>
                             <label for="editMake">Edit Make</label><br>
-                            <input type="text" id="editMake" name="editMake"><br>
+                            <input type="text" id="editMake" name="editMake" required><br>
                             <label for="editModel">Edit Model</label><br>
-                            <input type="text" id="editModel" name="editModel"><br>
+                            <input type="text" id="editModel" name="editModel required"><br>
                             <label for="editYear">Edit Year</label><br>
-                            <input type="text" id="editYear" name="editYear"><br>
+                            <input type="text" id="editYear" name="editYear required"><br>
                             <label for="editColor">Edit Color</label><br>
-                            <input type="text" id="editColor" name="editColor"><br>
+                            <input type="text" id="editColor" name="editColor required"><br>
                             <label for="editPrice">Edit Price</label><br>
-                            <input type="text" id="editPrice" name="editPrice"><br>
+                            <input type="text" id="editPrice" name="editPrice required"><br>
                             <label for="editMileage">Edit Mileage</label><br>
-                            <input type="text" id="editMileage" name="editMileage"><br>
+                            <input type="text" id="editMileage" name="editMileage required"><br>
                             <label for="editType">Edit Type</label><br>
-                            <input type="text" id="editType" name="editType"><br>
+                            <input type="text" id="editType" name="editType required"><br>
                             <label for="editDescription">Edit Description</label><br>
                             <input type="text" id="editDescription" name="editDescription"><br>
                             <label><input type="text" id="editUsername" name="editUsername" class="invisible d-none"></label>
@@ -144,7 +144,6 @@
                 deleteButton.innerText= "Delete";
                 vehicleCard.appendChild(deleteButton);
                 document.getElementById("vehicles").appendChild(vehicleCard);
-
               }));
         </script>
 

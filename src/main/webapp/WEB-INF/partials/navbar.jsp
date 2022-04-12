@@ -39,31 +39,31 @@
                 <form action="/ads/create" method="post">
                     <div class="form-group">
                         <label for="make">Make</label>
-                        <input id="make" name="make" class="form-control" type="text">
+                        <input id="make" name="make" class="form-control" type="text" required>
                     </div>
                     <div class="form-group">
                         <label for="model">Model</label>
-                        <input id="model" name="model" class="form-control" type="text">
+                        <input id="model" name="model" class="form-control" type="text" required>
                     </div>
                     <div class="form-group">
                         <label for="year">Year</label>
-                        <input id="year" name="year" class="form-control" type="text">
+                        <input id="year" name="year" class="form-control" type="text" required>
                     </div>
                     <div class="form-group">
                         <label for="color">Color</label>
-                        <input id="color" name="color" class="form-control" type="text">
+                        <input id="color" name="color" class="form-control" type="text" required>
                     </div>
                     <div class="form-group">
                         <label for="price">Price</label>
-                        <input id="price" name="price" class="form-control" type="text">
+                        <input id="price" name="price" class="form-control" type="text" required>
                     </div>
                     <div class="form-group">
                         <label for="mileage">Mileage</label>
-                        <input id="mileage" name="mileage" class="form-control" type="text">
+                        <input id="mileage" name="mileage" class="form-control" type="text" required>
                     </div>
                     <div class="form-group">
                         <label for="type">Type</label>
-                        <input id="type" name="type" class="form-control" type="text">
+                        <input id="type" name="type" class="form-control" type="text" required>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
