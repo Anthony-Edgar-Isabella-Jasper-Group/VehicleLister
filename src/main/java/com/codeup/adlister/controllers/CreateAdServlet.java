@@ -18,6 +18,6 @@ public class CreateAdServlet extends HttpServlet {
         User user = (User) request.getSession().getAttribute("user");
         Vehicle ad = new Vehicle(user.getUsername(), user.getEmail(), request.getParameter("make"), request.getParameter("model"), Short.parseShort(request.getParameter("year")), request.getParameter("color"), Float.parseFloat(request.getParameter("price")), Integer.parseInt(request.getParameter("mileage")), request.getParameter("type"), request.getParameter("description"));
         DaoFactory.getAdsDao().insert(ad);
-        response.sendRedirect("/ads");
+        response.sendRedirect("/");
     }
 }
