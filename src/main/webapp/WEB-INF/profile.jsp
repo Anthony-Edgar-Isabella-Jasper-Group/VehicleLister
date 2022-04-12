@@ -8,7 +8,7 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-        <h1 style="text-align: center">${username}</h1>
+        <h1 style="text-align: center">Hello, ${username}!</h1>
         <h3 style="text-align: center">Your Ads</h3>
         <div class="container">
             <div id="vehicles" class="row">
