@@ -4,6 +4,7 @@ import com.codeup.adlister.models.Vehicle;
 import com.mysql.cj.jdbc.Driver;
 
 import java.util.List;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -32,10 +33,27 @@ public class MySQLVehiclesDao implements Vehicles {
         }
     }
 
-    public List<Vehicle> findByUser_id(int user_id) {
+    @Override
+    public Vehicle findByVehicle_id(long id) {
+        PreparedStatement statement = null;
+        String user = "" + id;
+        String query = "SELECT * FROM vehicles WHERE id = ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, user);
+            ResultSet rs = statement.executeQuery();
+             List<Vehicle> list = createVehicleAdsFromResults(rs);
+            return list.get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting vehicles from database with ID", e);
+        }
+    }
+
+    @Override
+    public List<Vehicle> findByUser_Id(long user_id) {
         PreparedStatement statement = null;
         String user = "" + user_id;
-        String query = "SELECT * FROM vehicles WHERE make_id = ?";
+        String query = "SELECT * FROM vehicles WHERE user_id = ?";
         try {
             statement = connection.prepareStatement(query);
             statement.setString(1, user);
