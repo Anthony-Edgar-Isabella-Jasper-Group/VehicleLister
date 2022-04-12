@@ -112,6 +112,8 @@
                 vehicleCardBody.setAttribute("class", "card-body");
                 vehicleCardBody.innerHTML = "<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
                     "<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
+                let vehicleCardFooter = document.createElement("div")
+                vehicleCardFooter.setAttribute("class", "card-footer d-flex justify-content-around");
                 let editButton = document.createElement("button");
                 editButton.setAttribute("type", "button");
                 editButton.setAttribute("class", "btn btn-primary mx-1");
@@ -132,7 +134,7 @@
                 });
                 editButton.innerText= "Edit Ad";
                 vehicleCard.appendChild(vehicleCardBody);
-                vehicleCard.appendChild(editButton);
+                vehicleCardFooter.appendChild(editButton);
                 let deleteButton = document.createElement("button");
                 deleteButton.setAttribute("type", "button");
                 deleteButton.setAttribute("class", "btn btn-primary mx-1");
@@ -142,7 +144,8 @@
                     $('#deleteVehicleID').val(vehicle.id);
                 });
                 deleteButton.innerText= "Delete";
-                vehicleCard.appendChild(deleteButton);
+                vehicleCardFooter.appendChild(deleteButton);
+                vehicleCard.append(vehicleCardFooter)
                 document.getElementById("vehicles").appendChild(vehicleCard);
               }));
         </script>

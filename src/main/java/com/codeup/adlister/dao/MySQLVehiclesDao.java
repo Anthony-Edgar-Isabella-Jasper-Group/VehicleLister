@@ -326,4 +326,107 @@ public class MySQLVehiclesDao implements Vehicles {
     private Vehicle extractVehicle(ResultSet rs) throws SQLException {
         return new Vehicle(rs.getLong("id"), rs.getString("username"), rs.getString("email"), rs.getString("make"), rs.getString("model"), rs.getShort("year"), rs.getString("color"), rs.getFloat("price"), rs.getInt("mileage"), rs.getString("type"), rs.getString("description"));
     }
+
+    @Override
+    public void edit(Vehicle vehicle) {
+        int makeId;
+        try {
+            PreparedStatement findMake;
+            String makeQuery = "SELECT id FROM makes WHERE make = ?";
+            findMake = connection.prepareStatement(makeQuery);
+            findMake.setString(1, vehicle.getMake());
+            ResultSet makeRs = findMake.executeQuery();
+            if (makeRs.next()) {
+                makeId = makeRs.getInt("id");
+            } else {
+                String makeStatement = "INSERT INTO makes (make) VALUES (?)";
+                PreparedStatement insertMake = connection.prepareStatement(makeStatement, Statement.RETURN_GENERATED_KEYS);
+                insertMake.setString(1, vehicle.getMake());
+                insertMake.executeUpdate();
+                makeRs = insertMake.getGeneratedKeys();
+                makeRs.next();
+                makeId = makeRs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding make id from database.");
+        }
+        int colorId;
+        try {
+            PreparedStatement findColor;
+            String colorQuery = "SELECT id FROM colors WHERE color = ?";
+            findColor = connection.prepareStatement(colorQuery);
+            findColor.setString(1, vehicle.getColor());
+            ResultSet colorRs = findColor.executeQuery();
+            if (colorRs.next()) {
+                colorId = colorRs.getInt("id");
+            } else {
+                String colorStatement = "INSERT INTO colors (color) VALUES (?)";
+                PreparedStatement insertColor = connection.prepareStatement(colorStatement, Statement.RETURN_GENERATED_KEYS);
+                insertColor.setString(1, vehicle.getColor());
+                insertColor.executeUpdate();
+                colorRs = insertColor.getGeneratedKeys();
+                colorRs.next();
+                colorId = colorRs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding color id from database.");
+        }
+        int typeId;
+        try {
+            PreparedStatement findType;
+            String typeQuery = "SELECT id FROM types WHERE type = ?";
+            findType = connection.prepareStatement(typeQuery);
+            findType.setString(1, vehicle.getType());
+            ResultSet typeRs = findType.executeQuery();
+            if (typeRs.next()) {
+                typeId = typeRs.getInt("id");
+            } else {
+                String typeStatement = "INSERT INTO types (type) VALUES (?)";
+                PreparedStatement insertType = connection.prepareStatement(typeStatement, Statement.RETURN_GENERATED_KEYS);
+                insertType.setString(1, vehicle.getType());
+                insertType.executeUpdate();
+                typeRs = insertType.getGeneratedKeys();
+                typeRs.next();
+                typeId = typeRs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding type id from database.");
+        }
+        PreparedStatement statement;
+        String query = "UPDATE vehicles SET make_id = ?, model = ?, year = ?, color_id = ?, price = ?, mileage = ?, type_id = ?, description = ? WHERE id = ?";
+        String vehicleId = "" + vehicle.getId();
+        String year = "" + vehicle.getYear();
+        String price = "" + vehicle.getPrice();
+        String mileage = "" + vehicle.getMileage();
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, makeId);
+            statement.setString(2, vehicle.getModel());
+            statement.setString(3, year);
+            statement.setInt(4, colorId);
+            statement.setString(5, price);
+            statement.setString(6, mileage);
+            statement.setInt(7, typeId);
+            statement.setString(8, vehicle.getDescription());
+            statement.setString(9, vehicleId);
+            statement.executeUpdate();
+
+            System.out.println("I'm working");;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error editing Vehicle to vehicle database!", e);
+        }
+    }
+    @Override
+    public void delete(Long id){
+        PreparedStatement statement;
+        String query = "DELETE FROM vehicles WHERE id = ?";
+        try{
+            statement = connection.prepareStatement(query);
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch(SQLException e) {
+            throw new RuntimeException("Error deleting Vehicle to vehicle database!", e);
+        }
+
+    }
 }
