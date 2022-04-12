@@ -75,8 +75,8 @@
             </c:forEach>
             vehiclesArray.forEach((vehicle => {
                 let newVehicle = document.createElement("div");
-                newVehicle.innerHTML ="<div class=\"col-3\">" + "<h3>" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h3>" +
-                    "<p>" + vehicle.description + "</p>" + "</div>";
+                newVehicle.innerHTML ="<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
+                "<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
                 let newButton = document.createElement("button");
                 newButton.setAttribute("type", "button");
                 newButton.setAttribute("class", "btn btn-primary");
