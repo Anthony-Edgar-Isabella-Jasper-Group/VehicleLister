@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">Vehicle Lister</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
@@ -69,7 +69,7 @@
                         <label for="description">Description</label>
                         <input type="text" id="description" class="form-control">
                     </div>
-                    <input type="submit" class="btn btn-primary">
+                    <input type="submit" class="btn">
                 </form>
             </div>
         </div>

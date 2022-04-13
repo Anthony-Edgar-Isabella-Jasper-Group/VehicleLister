@@ -20,7 +20,7 @@
         </div>
     </c:if>
     <div class="container">
-        <h1 class="mt-4 text-center">Browse ads</h1>
+        <h1 class="mb-5 mt-3 text-center"><u>Browse Current Ads</u></h1>
         <div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="makesFilterDropdownButton" data-toggle="dropdown">
@@ -48,7 +48,7 @@
             </div>
             <button class="btn btn-danger" id="clearFiltersButton">Clear Filters</button>
         </div>
-        <div id="vehicles" class="row"></div>
+        <div id="vehicles" class="row d-flex justify-content-center">
     </div>
     <div class="modal fade" id="moreInfo" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -96,12 +96,14 @@
 			} else {
 				vehiclesList.forEach(vehicle => {
 					let vehicleCard = document.createElement("div");
-					vehicleCard.setAttribute("class", "card");
+					vehicleCard.setAttribute("class", "card col-3 mx-3 mb-3 px-0");
 					vehicleCard.setAttribute("style", "width: 18rem");
 					let vehicleCardBody = document.createElement("div");
 					vehicleCardBody.setAttribute("class", "card-body");
 					vehicleCardBody.innerHTML = "<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
 						"<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
+          let vehicleCardFooter = document.createElement("div");
+          vehicleCardFooter.setAttribute("class", "card-footer d-flex justify-content-center");
 					let newButton = document.createElement("button");
 					newButton.setAttribute("type", "button");
 					newButton.setAttribute("class", "btn btn-primary");
@@ -118,8 +120,9 @@
 						$('#vehicleDescription').text(vehicle.description);
 					});
 					newButton.innerText = "More Info";
-					vehicleCardBody.appendChild(newButton);
-					vehicleCard.appendChild(vehicleCardBody);
+          vehicleCardFooter.appendChild(newButton);
+          vehicleCard.appendChild(vehicleCardBody);
+          vehicleCard.appendChild(vehicleCardFooter);
 					vehiclesDiv.appendChild(vehicleCard);
 				});
 			}
