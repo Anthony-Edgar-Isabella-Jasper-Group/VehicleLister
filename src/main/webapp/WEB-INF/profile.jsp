@@ -8,28 +8,28 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-        <h1 style="text-align: center">Hello, ${username}!</h1>
-        <h3 style="text-align: center">Your Ads</h3>
+        <h1 style="text-align: center" class="my-3">Hello, ${username}!</h1>
+        <h3 style="text-align: center" class="mb-5">Your Ads</h3>
         <div class="container">
-            <div id="vehicles" class="row">
+            <div id="vehicles" class="row d-flex justify-content-center">
 
             </div>
         </div>
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 id="vehicleTitle" class="modal-title"></h5>
+                    <div class="modal-header text-center">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                        <p>Are you sure you want to delete this vehicle</p>
-                        <form action="/delete" method="POST" id="deleteForm">
-                            <label><input type="text" id="deleteVehicleID" name="deleteVehicleID" class="invisible d-none"></label><br>
+                        <h5 id="vehicleTitle" class="modal-title">
+                            Are you sure you want to delete this vehicle?
+                        </h5>
+                        <form action="/delete" method="POST" id="deleteForm" class="d-none">
+                            <label class="d-none"><input type="text" id="deleteVehicleID" name="deleteVehicleID" class="invisible d-none"></label><br>
                         </form>
-
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn" form="deleteForm">Confirm</button>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="modal-body">
                         <form action="/edit-vehicle" method="POST" id="editForm">
-                            <label><input class="form-control" type="text" id="editVehicleID" name="editVehicleID"></label><br>
+                            <label><input class="form-control invisible d-none" type="text" id="editVehicleID" name="editVehicleID"></label><br>
                             <label for="editMake">Edit Make</label><br>
                             <input class="form-control" type="text" id="editMake" name="editMake" required><br>
                             <label for="editModel">Edit Model</label><br>
@@ -106,14 +106,14 @@
             </c:forEach>
             vehiclesArray.forEach((vehicle => {
                 let vehicleCard = document.createElement("div");
-                vehicleCard.setAttribute("class", "card");
+                vehicleCard.setAttribute("class", "card col-3 mx-3 mb-3 px-0");
                 vehicleCard.setAttribute("style", "width: 18rem");
                 let vehicleCardBody = document.createElement("div");
                 vehicleCardBody.setAttribute("class", "card-body");
                 vehicleCardBody.innerHTML = "<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
                     "<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
                 let vehicleCardFooter = document.createElement("div")
-                vehicleCardFooter.setAttribute("class", "card-footer d-flex justify-content-around");
+                vehicleCardFooter.setAttribute("class", "card-footer d-flex justify-content-center");
                 let editButton = document.createElement("button");
                 editButton.setAttribute("type", "button");
                 editButton.setAttribute("class", "btn mx-1");
