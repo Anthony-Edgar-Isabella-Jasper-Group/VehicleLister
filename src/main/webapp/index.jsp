@@ -7,6 +7,13 @@
         </jsp:include>
     </head>
     <body>
+    <c:choose>
+        <c:when test="${invalid == true}">
+            <script>
+                window.alert("Invalid input field when creating ad!")
+            </script>
+        </c:when>
+    </c:choose>
         <jsp:include page="/WEB-INF/partials/navbar.jsp" />
         <c:if test="${sessionScope.user.username == null}">
             <div class="container">
