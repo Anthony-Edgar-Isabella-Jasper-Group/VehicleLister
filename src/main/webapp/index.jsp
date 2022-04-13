@@ -1,130 +1,274 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-    <head>
-        <jsp:include page="/WEB-INF/partials/head.jsp">
-            <jsp:param name="title" value="Welcome To Vehicle Lister!" />
-        </jsp:include>
-    </head>
-    <body>
-    <c:choose>
-        <c:when test="${invalid == true}">
-            <script>
-                window.alert("Invalid input field when creating ad!")
-            </script>
-        </c:when>
-    </c:choose>
-        <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-        <c:if test="${sessionScope.user.username == null}">
-            <div class="container">
-                <div class="container text-center">
-                    <h2 class="mt-5">Have a car, truck or any vehicle you want to sell? <br> Create a profile and start listing your vehicle</h2>
-                    <a class="btn btn-secondary btn-lg mt-5" href="/register" role="button">Sign up!</a>
-                </div>
-            </div>
-            <br>
-            <br>
-        </c:if>
+<head>
+    <jsp:include page="/WEB-INF/partials/head.jsp">
+        <jsp:param name="title" value="Welcome To Vehicle Lister!"/>
+    </jsp:include>
+</head>
+<body>
+    <jsp:include page="/WEB-INF/partials/navbar.jsp"/>
+    <c:if test="${sessionScope.user.username == null}">
         <div class="container">
-            <h1 class="mb-5 mt-3 text-center"><u>Browse Current Ads</u></h1>
-            <form action="/" method="post">
-                <label for="makeSelect">Make <select name="makeSelect" id="makeSelect"></select></label>
-                <label for="typeSelect">Type <select name="typeSelect" id="typeSelect"></select></label>
-            </form>
-            <div id="vehicles" class="row d-flex justify-content-center">
+            <div class="container text-center">
+                <h2 class="mt-5">Have a car, truck or any vehicle you want to sell?
+                    <br>
+                    Create a profile and start listing your vehicle
+                </h2>
+                <a class="btn btn-secondary btn-lg mt-5" href="/register" role="button">Sign up!</a>
             </div>
         </div>
-        <div class="modal fade" id="moreInfo" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 id="vehicleTitle" class="modal-title"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <dl>
-                            <dt>Posted By</dt>
-                            <dd id="vehicleUsername"></dd>
-                            <dt>Email</dt>
-                            <dd id="vehicleEmail"></dd>
-                            <dt>Color</dt>
-                            <dd id="vehicleColor"></dd>
-                            <dt>Price</dt>
-                            <dd id="vehiclePrice"></dd>
-                            <dt>Mileage</dt>
-                            <dd id="vehicleMileage"></dd>
-                            <dt>Type</dt>
-                            <dd id="vehicleType"></dd>
-                            <dt>Description</dt>
-                            <dd id="vehicleDescription"></dd>
-                        </dl>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn" data-dismiss="modal">Close</button>
-                    </div>
+    </c:if>
+    <div class="container">
+        <h1 class="mb-5 mt-3 text-center"><u>Browse Current Ads</u></h1>
+        <div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="makesFilterDropdownButton" data-toggle="dropdown">
+                    Select Make
+                </button>
+                <div class="dropdown-menu" id="makesFilterDropdown"></div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="typesFilterDropdownButton" data-toggle="dropdown">
+                    Select Type
+                </button>
+                <div class="dropdown-menu" id="typesFilterDropdown"></div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="colorsFilterDropdownButton" data-toggle="dropdown">
+                    Select Color
+                </button>
+                <div class="dropdown-menu" id="colorsFilterDropdown"></div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="yearsFilterDropdownButton" data-toggle="dropdown">
+                    Select Year
+                </button>
+                <div class="dropdown-menu" id="yearsFilterDropdown"></div>
+            </div>
+            <button class="btn btn-danger" id="clearFiltersButton">Clear Filters</button>
+        </div>
+        <div id="vehicles" class="row d-flex justify-content-center">
+    </div>
+    <div class="modal fade" id="moreInfo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="vehicleTitle" class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <dl>
+                        <dt>Posted By</dt>
+                        <dd id="vehicleUsername"></dd>
+                        <dt>Email</dt>
+                        <dd id="vehicleEmail"></dd>
+                        <dt>Color</dt>
+                        <dd id="vehicleColor"></dd>
+                        <dt>Price</dt>
+                        <dd id="vehiclePrice"></dd>
+                        <dt>Mileage</dt>
+                        <dd id="vehicleMileage"></dd>
+                        <dt>Type</dt>
+                        <dd id="vehicleType"></dd>
+                        <dt>Description</dt>
+                        <dd id="vehicleDescription"></dd>
+                    </dl>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script>
-            "use strict";
-            let displayVehicles = vehiclesList => {
-                vehiclesList.forEach(vehicle => {
-                    let vehicleCard = document.createElement("div");
-                    vehicleCard.setAttribute("class", "card col-3 mx-3 mb-3 px-0");
-                    vehicleCard.setAttribute("style", "width: 18rem");
-                    let vehicleCardBody = document.createElement("div");
-                    let vehicleCardFooter = document.createElement("div")
-                    vehicleCardFooter.setAttribute("class", "card-footer d-flex justify-content-center");
-                    vehicleCardBody.setAttribute("class", "card-body");
-                    vehicleCardBody.innerHTML = "<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
-                        "<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
-                    let newButton = document.createElement("button");
-                    newButton.setAttribute("type", "button");
-                    newButton.setAttribute("class", "btn");
-                    newButton.setAttribute("data-toggle", "modal");
-                    newButton.setAttribute("data-target", "#moreInfo");
-                    newButton.addEventListener("click", () => {
-                        $('#vehicleTitle').text(vehicle.year + " " + vehicle.make + " " + vehicle.model);
-                        $('#vehicleUsername').text(vehicle.username);
-                        $('#vehicleEmail').text(vehicle.email);
-                        $('#vehicleColor').text(vehicle.color);
-                        $('#vehiclePrice').text(vehicle.price);
-                        $('#vehicleMileage').text(vehicle.mileage);
-                        $('#vehicleType').text(vehicle.type);
-                        $('#vehicleDescription').text(vehicle.description);
-                    });
-                    newButton.innerText = "More Info";
-                    vehicleCardFooter.appendChild(newButton);
-                    vehicleCard.appendChild(vehicleCardBody);
-                    vehicleCard.appendChild(vehicleCardFooter);
-                    document.getElementById("vehicles").appendChild(vehicleCard);
-                });
-            }
-            let vehiclesArray = [];
-            let makesArray = [];
-
-            <c:forEach var="vehicle" items="${ads}">
-            vehiclesArray.push({
-                id: ${vehicle.id},
-                username: "${vehicle.username}",
-                email: "${vehicle.email}",
-                make: "${vehicle.make}",
-                model: "${vehicle.model}",
-                year: ${vehicle.year},
-                color: "${vehicle.color}",
-                price: ${vehicle.price},
-                mileage: ${vehicle.mileage},
-                type: "${vehicle.type}",
-                description: "${vehicle.description}"
-            });
-            </c:forEach>
-            displayVehicles(vehiclesArray);
-        </script>
-    </body>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+		"use strict";
+		let displayVehicles = vehiclesList => {
+			let vehiclesDiv = document.getElementById("vehicles");
+			vehiclesDiv.innerText = "";
+			if (vehiclesList.length === 0) {
+				let noResultsDiv = document.createElement("div");
+				noResultsDiv.innerText = "No vehicles to display :(";
+				vehiclesDiv.appendChild(noResultsDiv);
+			} else {
+				vehiclesList.forEach(vehicle => {
+					let vehicleCard = document.createElement("div");
+					vehicleCard.setAttribute("class", "card col-3 mx-3 mb-3 px-0");
+					vehicleCard.setAttribute("style", "width: 18rem");
+					let vehicleCardBody = document.createElement("div");
+					vehicleCardBody.setAttribute("class", "card-body");
+					vehicleCardBody.innerHTML = "<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
+						"<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
+          let vehicleCardFooter = document.createElement("div");
+          vehicleCardFooter.setAttribute("class", "card-footer d-flex justify-content-center");
+					let newButton = document.createElement("button");
+					newButton.setAttribute("type", "button");
+					newButton.setAttribute("class", "btn btn-primary");
+					newButton.setAttribute("data-toggle", "modal");
+					newButton.setAttribute("data-target", "#moreInfo");
+					newButton.addEventListener("click", () => {
+						$('#vehicleTitle').text(vehicle.year + " " + vehicle.make + " " + vehicle.model);
+						$('#vehicleUsername').text(vehicle.username);
+						$('#vehicleEmail').text(vehicle.email);
+						$('#vehicleColor').text(vehicle.color);
+						$('#vehiclePrice').text(vehicle.price);
+						$('#vehicleMileage').text(vehicle.mileage);
+						$('#vehicleType').text(vehicle.type);
+						$('#vehicleDescription').text(vehicle.description);
+					});
+					newButton.innerText = "More Info";
+          vehicleCardFooter.appendChild(newButton);
+          vehicleCard.appendChild(vehicleCardBody);
+          vehicleCard.appendChild(vehicleCardFooter);
+					vehiclesDiv.appendChild(vehicleCard);
+				});
+			}
+		}
+		let fillDropdownMenus = () => {
+			let makesDropdown = document.getElementById("makesFilterDropdown");
+			makesArray.forEach(make => {
+				let newMake = document.createElement("button");
+				newMake.setAttribute("class", "dropdown-item");
+				newMake.innerText = make;
+				newMake.addEventListener("click", () => {
+					selectedMake = make;
+					filterVehicles();
+				});
+				makesDropdown.appendChild(newMake);
+			});
+			let yearsDropdown = document.getElementById("yearsFilterDropdown");
+			yearsArray.forEach(year => {
+				let newYear = document.createElement("button");
+				newYear.setAttribute("class", "dropdown-item");
+				newYear.innerText = year;
+				newYear.addEventListener("click", () => {
+					selectedYear = Number(year);
+					filterVehicles();
+				});
+				yearsDropdown.appendChild(newYear);
+			});
+			let typesDropdown = document.getElementById("typesFilterDropdown");
+			typesArray.forEach(type => {
+				let newType = document.createElement("button");
+				newType.setAttribute("class", "dropdown-item");
+				newType.innerText = type;
+				newType.addEventListener("click", () => {
+					selectedType = type;
+					filterVehicles();
+				});
+				typesDropdown.appendChild(newType);
+			});
+			let colorsDropdown = document.getElementById("colorsFilterDropdown");
+			colorsArray.forEach(color => {
+				let newColor = document.createElement("button");
+				newColor.setAttribute("class", "dropdown-item");
+				newColor.innerText = color;
+				newColor.addEventListener("click", () => {
+					selectedColor = color;
+					filterVehicles();
+				});
+				colorsDropdown.appendChild(newColor);
+			});
+		}
+		let filterVehicles = () => {
+			let filteredVehiclesList = vehiclesToDisplay;
+			if (selectedYear) {
+				filteredVehiclesList.forEach(vehicle => {
+					filteredVehiclesList = filteredVehiclesList.reduce((filteredByYear, vehicle) => {
+						if (vehicle.year === selectedYear) {
+							filteredByYear.push(vehicle);
+						}
+						return filteredByYear;
+					}, []);
+				});
+			}
+			if (selectedMake) {
+				filteredVehiclesList.forEach(vehicle => {
+					filteredVehiclesList = filteredVehiclesList.reduce((filteredByMake, vehicle) => {
+						if (vehicle.make === selectedMake) {
+							filteredByMake.push(vehicle);
+						}
+						return filteredByMake;
+					}, []);
+				});
+			}
+			if (selectedColor) {
+				filteredVehiclesList.forEach(vehicle => {
+					filteredVehiclesList = filteredVehiclesList.reduce((filteredByColor, vehicle) => {
+						if (vehicle.color === selectedColor) {
+							filteredByColor.push(vehicle);
+						}
+						return filteredByColor;
+					}, []);
+				});
+			}
+			if (selectedType) {
+				filteredVehiclesList.forEach(vehicle => {
+					filteredVehiclesList = filteredVehiclesList.reduce((filteredByType, vehicle) => {
+						if (vehicle.type === selectedType) {
+							filteredByType.push(vehicle);
+						}
+						return filteredByType;
+					}, []);
+				});
+			}
+			displayVehicles(filteredVehiclesList);
+		}
+		let clearFilters = () => {
+			vehiclesToDisplay = vehiclesArray;
+			selectedYear = null;
+			selectedMake = null;
+			selectedType = null;
+			selectedColor = null;
+			displayVehicles(vehiclesToDisplay);
+		}
+		let vehiclesArray = [];
+		let makesArray = [];
+		let typesArray = [];
+		let colorsArray = [];
+		let yearsArray = [];
+		let vehiclesToDisplay = [];
+		let selectedMake;
+		let selectedYear;
+		let selectedType;
+		let selectedColor;
+		<c:forEach var="vehicle" items="${ads}">
+		vehiclesArray.unshift({
+			id: ${vehicle.id},
+			username: "${vehicle.username}",
+			email: "${vehicle.email}",
+			make: "${vehicle.make}",
+			model: "${vehicle.model}",
+			year: ${vehicle.year},
+			color: "${vehicle.color}",
+			price: ${vehicle.price},
+			mileage: ${vehicle.mileage},
+			type: "${vehicle.type}",
+			description: "${vehicle.description}"
+		});
+		if (!makesArray.includes("${vehicle.make}")) {
+			makesArray.push("${vehicle.make}");
+		}
+		if (!typesArray.includes("${vehicle.type}")) {
+			typesArray.push("${vehicle.type}");
+		}
+		if (!colorsArray.includes("${vehicle.color}")) {
+			colorsArray.push("${vehicle.color}");
+		}
+		if (!yearsArray.includes("${vehicle.year}")) {
+			yearsArray.push("${vehicle.year}");
+		}
+		</c:forEach>
+		makesArray.sort();
+		typesArray.sort();
+		colorsArray.sort();
+		yearsArray.sort();
+		document.getElementById("clearFiltersButton").addEventListener("click", clearFilters);
+		fillDropdownMenus();
+		clearFilters();
+    </script>
+</body>
 </html>
