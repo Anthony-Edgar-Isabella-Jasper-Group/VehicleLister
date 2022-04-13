@@ -32,8 +32,8 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" form="deleteForm">Confirm</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn" form="deleteForm">Confirm</button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -73,8 +73,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" form="editForm">Submit</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn" form="editForm">Submit</button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                 vehicleCardFooter.setAttribute("class", "card-footer d-flex justify-content-around");
                 let editButton = document.createElement("button");
                 editButton.setAttribute("type", "button");
-                editButton.setAttribute("class", "btn btn-primary mx-1");
+                editButton.setAttribute("class", "btn mx-1");
                 editButton.setAttribute("data-toggle", "modal");
                 editButton.setAttribute("data-target", "#editModal");
                 editButton.addEventListener("click", () => {
@@ -137,7 +137,7 @@
                 vehicleCardFooter.appendChild(editButton);
                 let deleteButton = document.createElement("button");
                 deleteButton.setAttribute("type", "button");
-                deleteButton.setAttribute("class", "btn btn-primary mx-1");
+                deleteButton.setAttribute("class", "btn mx-1");
                 deleteButton.setAttribute("data-toggle", "modal");
                 deleteButton.setAttribute("data-target", "#deleteModal");
                 deleteButton.addEventListener("click", () => {
