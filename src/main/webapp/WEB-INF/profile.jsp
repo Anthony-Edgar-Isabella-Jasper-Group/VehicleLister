@@ -7,6 +7,13 @@
         </jsp:include>
     </head>
     <body>
+    <c:choose>
+        <c:when test="${invalid == true}">
+            <script>
+                window.alert("Invalid input field when editing ad!")
+            </script>
+        </c:when>
+    </c:choose>
         <jsp:include page="/WEB-INF/partials/navbar.jsp" />
         <h1 style="text-align: center" class="my-3">Hello, ${username}!</h1>
         <h3 style="text-align: center" class="mb-5">Your Ads</h3>
