@@ -53,7 +53,7 @@
                         </dl>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                         "<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
                     let newButton = document.createElement("button");
                     newButton.setAttribute("type", "button");
-                    newButton.setAttribute("class", "btn btn-primary");
+                    newButton.setAttribute("class", "btn");
                     newButton.setAttribute("data-toggle", "modal");
                     newButton.setAttribute("data-target", "#moreInfo");
                     newButton.addEventListener("click", () => {
