@@ -16,6 +16,8 @@ import java.io.IOException;
 public class CreateAdServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = (User) request.getSession().getAttribute("user");
+
+
         Vehicle ad = new Vehicle(user.getUsername(), user.getEmail(), request.getParameter("make"), request.getParameter("model"), Short.parseShort(request.getParameter("year")), request.getParameter("color"), Float.parseFloat(request.getParameter("price")), Integer.parseInt(request.getParameter("mileage")), request.getParameter("type"), request.getParameter("description"));
         DaoFactory.getAdsDao().insert(ad);
         response.sendRedirect("/");

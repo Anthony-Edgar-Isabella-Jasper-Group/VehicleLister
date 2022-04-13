@@ -25,7 +25,6 @@ public class DeleteVehicleServlet extends HttpServlet{
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = (User) request.getSession().getAttribute("user");
-        System.out.println(Long.parseLong(request.getParameter("deleteVehicleID")));
         DaoFactory.getAdsDao().delete(Long.parseLong(request.getParameter("deleteVehicleID")));
         response.sendRedirect("/profile");
     }
