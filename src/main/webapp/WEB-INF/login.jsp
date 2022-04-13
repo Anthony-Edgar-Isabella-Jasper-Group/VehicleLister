@@ -21,7 +21,7 @@
                 <div class="text-right"><a href="#">Forgot Password?</a></div>
             </div>
             <div class="d-flex justify-content-center">
-                <input type="submit" class="btn btn-primary btn-block my-5 w-50" value="Log In">
+                <input type="submit" class="btn btn-block my-5 w-50" value="Log In">
             </div>
         </form>
         <div class="text-center"><a href="/register">Not a user? Sign up!</a></div>

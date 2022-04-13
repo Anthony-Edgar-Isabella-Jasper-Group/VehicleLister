@@ -22,14 +22,16 @@
                     <a class="btn btn-secondary btn-lg mt-5" href="/register" role="button">Sign up!</a>
                 </div>
             </div>
+            <br>
+            <br>
         </c:if>
         <div class="container">
-            <h1 class="mt-4 text-center">Browse ads</h1>
+            <h1 class="mb-5 mt-3 text-center"><u>Browse Current Ads</u></h1>
             <form action="/" method="post">
                 <label for="makeSelect">Make <select name="makeSelect" id="makeSelect"></select></label>
                 <label for="typeSelect">Type <select name="typeSelect" id="typeSelect"></select></label>
             </form>
-            <div id="vehicles" class="row">
+            <div id="vehicles" class="row d-flex justify-content-center">
             </div>
         </div>
         <div class="modal fade" id="moreInfo" tabindex="-1" aria-hidden="true">
@@ -60,7 +62,7 @@
                         </dl>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -74,15 +76,17 @@
             let displayVehicles = vehiclesList => {
                 vehiclesList.forEach(vehicle => {
                     let vehicleCard = document.createElement("div");
-                    vehicleCard.setAttribute("class", "card");
+                    vehicleCard.setAttribute("class", "card col-3 mx-3 mb-3 px-0");
                     vehicleCard.setAttribute("style", "width: 18rem");
                     let vehicleCardBody = document.createElement("div");
+                    let vehicleCardFooter = document.createElement("div")
+                    vehicleCardFooter.setAttribute("class", "card-footer d-flex justify-content-center");
                     vehicleCardBody.setAttribute("class", "card-body");
                     vehicleCardBody.innerHTML = "<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
                         "<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
                     let newButton = document.createElement("button");
                     newButton.setAttribute("type", "button");
-                    newButton.setAttribute("class", "btn btn-primary");
+                    newButton.setAttribute("class", "btn");
                     newButton.setAttribute("data-toggle", "modal");
                     newButton.setAttribute("data-target", "#moreInfo");
                     newButton.addEventListener("click", () => {
@@ -96,8 +100,9 @@
                         $('#vehicleDescription').text(vehicle.description);
                     });
                     newButton.innerText = "More Info";
-                    vehicleCardBody.appendChild(newButton);
+                    vehicleCardFooter.appendChild(newButton);
                     vehicleCard.appendChild(vehicleCardBody);
+                    vehicleCard.appendChild(vehicleCardFooter);
                     document.getElementById("vehicles").appendChild(vehicleCard);
                 });
             }
