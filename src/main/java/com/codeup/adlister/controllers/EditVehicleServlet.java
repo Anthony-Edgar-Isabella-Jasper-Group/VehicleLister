@@ -40,31 +40,4 @@ public class EditVehicleServlet extends HttpServlet{
            request.getSession().setAttribute("invalid", true);
        }
     }
-
 }
-
-
-
-
-
-
-
-
-
-//@WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
-//public class CreateAdServlet extends HttpServlet {
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        User user = (User) request.getSession().getAttribute("user");
-//        String year = request.getParameter("editYear");
-//        String mileage = request.getParameter("editMileage");
-//        String price = request.getParameter("editPrice");
-//        if(Validation.isValidShort(year) && Validation.isValidFloat(price) && Validation.isValidInt(mileage)){
-//            Vehicle ad = new Vehicle(Long.parseLong(request.getParameter("editVehicleID")), request.getParameter("editUsername"), request.getParameter("editEmail"), request.getParameter("editMake"), request.getParameter("editModel"), Short.parseShort(request.getParameter("editYear")), request.getParameter("editColor"), Float.parseFloat(request.getParameter("editPrice")), Integer.parseInt(request.getParameter("editMileage")), request.getParameter("editType"), request.getParameter("editDescription"));
-//            DaoFactory.getAdsDao().edit(ad);
-//            response.sendRedirect("/");
-//        }else{
-//            response.sendRedirect("/");
-//            request.getSession().setAttribute("invalid", true);
-//        }
-//    }
-//}
