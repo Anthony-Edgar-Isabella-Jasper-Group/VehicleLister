@@ -8,13 +8,31 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-        <h1 style="text-align: center" class="my-3">Hello, ${username}!</h1>
-        <h3 style="text-align: center" class="mb-5">Your Ads</h3>
-        <div class="container">
-            <div id="vehicles" class="row d-flex justify-content-center">
+        <h1 style="text-align: center" class="my-3">Welcome back, ${username}!</h1>
+        <h3 style="text-align: center" class="mb-5">Here are your current vehicle ads</h3>
+        <div class="d-flex">
+            <div class="container col-3">
+                <div class="card">
+                    <h3 class="card-header card title">Profile Information</h3>
+                    <div class="card-body">
+                        <div class="my-2">Username: ${username}</div>
 
+                        <div class="my-2">Email: ${email}</div>
+                        <br>
+                        <div><a href="#">Change Username</a></div>
+                        <div><a href="#">Change Password</a></div><br>
+
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="container col">
+                <div id="vehicles" class="row d-flex justify-content-center">
+
+                </div>
             </div>
         </div>
+
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">

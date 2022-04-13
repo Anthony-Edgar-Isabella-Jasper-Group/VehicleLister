@@ -20,7 +20,7 @@ public class DeleteVehicleServlet extends HttpServlet{
             response.sendRedirect("/login");
             return;
         }
-        request.getRequestDispatcher("/WEB-INF/profile").forward(request, response);
+        request.getRequestDispatcher("/").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
