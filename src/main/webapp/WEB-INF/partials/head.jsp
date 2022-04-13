@@ -3,14 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-    body {background-color: lightgray;}
-    .btn {background-color: #426e6e;
-         color: white;}
+    body {
+        background-color: lightgray;
+    }
+    .btn {
+        background-color: #638f8f;
+        color: white;
+    }
     .btn:hover {
+        color: white;
         background-color: darkslategray;
         transition: 0.7s;
     }
-
+    a {
+        color: black;
+    }
+    a:hover {
+        color: darkslategray;
+    }
 </style>
 
 
