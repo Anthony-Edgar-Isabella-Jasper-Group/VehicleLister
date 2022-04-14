@@ -67,7 +67,7 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input type="text" id="description" class="form-control">
+                        <input name="description" type="text" id="description" class="form-control">
                     </div>
                     <input type="submit" class="btn">
                 </form>
