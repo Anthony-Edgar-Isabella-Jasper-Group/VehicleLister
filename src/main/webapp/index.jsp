@@ -21,7 +21,7 @@
     </c:if>
     <div class="container">
         <h1 class="mb-5 mt-3 text-center"><u>Browse Current Ads</u></h1>
-        <div>
+        <div id="filters">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="makesFilterDropdownButton" data-toggle="dropdown">
                     Select Make
@@ -46,7 +46,7 @@
                 </button>
                 <div class="dropdown-menu" id="yearsFilterDropdown"></div>
             </div>
-            <button class="btn btn-danger" id="clearFiltersButton">Clear Filters</button>
+            <button class="btn" id="clearFiltersButton">Clear Filters</button>
         </div>
         <div id="vehicles" class="row d-flex justify-content-center"></div>
         <div class="modal fade" id="moreInfo" tabindex="-1" aria-hidden="true">
