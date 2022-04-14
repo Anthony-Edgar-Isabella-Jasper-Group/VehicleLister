@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,7 +14,7 @@
             <div class="form-group">
                 <label for="username">Username</label>
                 <input id="username" name="username" class="form-control" type="text">
-                <div class="text-right"><a href="#">Forgot Username?</a></div>
+                <div class="text-right"><a href="#" data-toggle="modal" data-target="#forgotUsernameModal" >Forgot Username?</a></div>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
@@ -26,5 +27,46 @@
         </form>
         <div class="text-center"><a href="/register">Not a user? Sign up!</a></div>
     </div>
+
+    <div class="modal fade" id="forgotUsernameModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h5 id="forgotUsername" class="modal-title">
+                        What is the email you used to sign up?
+                    </h5>
+                    <form action="/forgot-username" method="POST" id="forgotUsernameForm">
+                        <label><input type="text" id="userEmail" name="userEmail"></label><br>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn" form="forgotUsernameForm">Confirm</button>
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        console.log(${alert});
+        console.log("Hello")
+    </script>
+    <c:if test = "${alert}">
+                    <script>
+                        window.alert("Here is your username ${username}");
+                    </script>
+    </c:if>
+<%--    <c:choose>--%>
+<%--        <c:when test="${alert == true}">--%>
+<%--            <script>--%>
+<%--                console.log(${username});--%>
+<%--                window.alert("Here is your username " + ${username});--%>
+<%--            </script>--%>
+<%--        </c:when>--%>
+<%--    </c:choose>--%>
 </body>
 </html>
