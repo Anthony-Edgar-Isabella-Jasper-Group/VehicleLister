@@ -63,4 +63,40 @@ public class MySQLUsersDao implements Users {
         );
     }
 
+
+    @Override
+    public User editUsername(User user, String newUsername) {
+        PreparedStatement statement;
+        String query = "UPDATE users SET username = ? WHERE id = ?";
+        String userId = "" + user.getId();
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, newUsername);
+            statement.setString(2, userId);
+            statement.executeUpdate();
+            user.setUsername(newUsername);
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error editing Username to users database!", e);
+        }
+    }
+
+    @Override
+    public User editPassword(User user, String newPassword) {
+        PreparedStatement statement;
+        user.setPassword(newPassword);
+        String query = "UPDATE users SET password = ? WHERE id = ?";
+        String userId = "" + user.getId();
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, user.getPassword());
+            statement.setString(2, userId);
+            statement.executeUpdate();
+
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error editing Password to users database!", e);
+        }
+    }
+
 }
