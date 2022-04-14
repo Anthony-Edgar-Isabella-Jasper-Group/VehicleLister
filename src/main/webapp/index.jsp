@@ -48,37 +48,37 @@
             </div>
             <button class="btn btn-danger" id="clearFiltersButton">Clear Filters</button>
         </div>
-        <div id="vehicles" class="row d-flex justify-content-center">
-    </div>
-    <div class="modal fade" id="moreInfo" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="vehicleTitle" class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <dl>
-                        <dt>Posted By</dt>
-                        <dd id="vehicleUsername"></dd>
-                        <dt>Email</dt>
-                        <dd id="vehicleEmail"></dd>
-                        <dt>Color</dt>
-                        <dd id="vehicleColor"></dd>
-                        <dt>Price</dt>
-                        <dd id="vehiclePrice"></dd>
-                        <dt>Mileage</dt>
-                        <dd id="vehicleMileage"></dd>
-                        <dt>Type</dt>
-                        <dd id="vehicleType"></dd>
-                        <dt>Description</dt>
-                        <dd id="vehicleDescription"></dd>
-                    </dl>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div id="vehicles" class="row d-flex justify-content-center"></div>
+        <div class="modal fade" id="moreInfo" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="vehicleTitle" class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <dl>
+                            <dt>Posted By</dt>
+                            <dd id="vehicleUsername"></dd>
+                            <dt>Email</dt>
+                            <dd id="vehicleEmail"></dd>
+                            <dt>Color</dt>
+                            <dd id="vehicleColor"></dd>
+                            <dt>Price</dt>
+                            <dd id="vehiclePrice"></dd>
+                            <dt>Mileage</dt>
+                            <dd id="vehicleMileage"></dd>
+                            <dt>Type</dt>
+                            <dd id="vehicleType"></dd>
+                            <dt>Description</dt>
+                            <dd id="vehicleDescription"></dd>
+                        </dl>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -102,8 +102,8 @@
 					vehicleCardBody.setAttribute("class", "card-body");
 					vehicleCardBody.innerHTML = "<h5 class=\"card-title\">" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</h5>" +
 						"<h6 class=\"card-subtitle text-muted\">$" + vehicle.price + "</h6>";
-          let vehicleCardFooter = document.createElement("div");
-          vehicleCardFooter.setAttribute("class", "card-footer d-flex justify-content-center");
+					let vehicleCardFooter = document.createElement("div");
+					vehicleCardFooter.setAttribute("class", "card-footer d-flex justify-content-center");
 					let newButton = document.createElement("button");
 					newButton.setAttribute("type", "button");
 					newButton.setAttribute("class", "btn btn-primary");
@@ -120,9 +120,9 @@
 						$('#vehicleDescription').text(vehicle.description);
 					});
 					newButton.innerText = "More Info";
-          vehicleCardFooter.appendChild(newButton);
-          vehicleCard.appendChild(vehicleCardBody);
-          vehicleCard.appendChild(vehicleCardFooter);
+					vehicleCardFooter.appendChild(newButton);
+					vehicleCard.appendChild(vehicleCardBody);
+					vehicleCard.appendChild(vehicleCardFooter);
 					vehiclesDiv.appendChild(vehicleCard);
 				});
 			}
@@ -176,44 +176,36 @@
 		let filterVehicles = () => {
 			let filteredVehiclesList = vehiclesToDisplay;
 			if (selectedYear) {
-				filteredVehiclesList.forEach(vehicle => {
-					filteredVehiclesList = filteredVehiclesList.reduce((filteredByYear, vehicle) => {
-						if (vehicle.year === selectedYear) {
-							filteredByYear.push(vehicle);
-						}
-						return filteredByYear;
-					}, []);
-				});
+				filteredVehiclesList = filteredVehiclesList.reduce((filteredByYear, vehicle) => {
+					if (vehicle.year === selectedYear) {
+						filteredByYear.push(vehicle);
+					}
+					return filteredByYear;
+				}, []);
 			}
 			if (selectedMake) {
-				filteredVehiclesList.forEach(vehicle => {
-					filteredVehiclesList = filteredVehiclesList.reduce((filteredByMake, vehicle) => {
-						if (vehicle.make === selectedMake) {
-							filteredByMake.push(vehicle);
-						}
-						return filteredByMake;
-					}, []);
-				});
+				filteredVehiclesList = filteredVehiclesList.reduce((filteredByMake, vehicle) => {
+					if (vehicle.make === selectedMake) {
+						filteredByMake.push(vehicle);
+					}
+					return filteredByMake;
+				}, []);
 			}
 			if (selectedColor) {
-				filteredVehiclesList.forEach(vehicle => {
-					filteredVehiclesList = filteredVehiclesList.reduce((filteredByColor, vehicle) => {
-						if (vehicle.color === selectedColor) {
-							filteredByColor.push(vehicle);
-						}
-						return filteredByColor;
-					}, []);
-				});
+				filteredVehiclesList = filteredVehiclesList.reduce((filteredByColor, vehicle) => {
+					if (vehicle.color === selectedColor) {
+						filteredByColor.push(vehicle);
+					}
+					return filteredByColor;
+				}, []);
 			}
 			if (selectedType) {
-				filteredVehiclesList.forEach(vehicle => {
-					filteredVehiclesList = filteredVehiclesList.reduce((filteredByType, vehicle) => {
-						if (vehicle.type === selectedType) {
-							filteredByType.push(vehicle);
-						}
-						return filteredByType;
-					}, []);
-				});
+				filteredVehiclesList = filteredVehiclesList.reduce((filteredByType, vehicle) => {
+					if (vehicle.type === selectedType) {
+						filteredByType.push(vehicle);
+					}
+					return filteredByType;
+				}, []);
 			}
 			displayVehicles(filteredVehiclesList);
 		}
