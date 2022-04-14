@@ -19,8 +19,8 @@
 
                         <div class="my-2">Email: ${email}</div>
                         <br>
-                        <div><a href="#">Change Username</a></div>
-                        <div><a href="#">Change Password</a></div><br>
+                        <div><a href="#" data-toggle="modal" data-target="#changeUsernameModal">Change Username</a></div>
+                        <div><a href="#" data-toggle="modal" data-target="#changePasswordModal">Change Password</a></div><br>
 
                         <div></div>
                     </div>
@@ -51,6 +51,55 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn" form="deleteForm">Confirm</button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="changeUsernameModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <h5 id="changeUsername" class="modal-title">
+                            What do you want your new Username to be?
+                        </h5>
+                        <form action="/edit-username" method="POST" id="editUsernameForm">
+                            <label><input type="text" id="newUsername" name="newUsername"></label><br>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn" form="editUsernameForm">Confirm</button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <h5 id="editPasswordTitle" class="modal-title">
+                            Please enter your new password.
+                        </h5>
+                        <form action="/edit-password" method="POST" id="editPasswordForm">
+                            <label><input type="password" id="newPassword" name="newPassword"></label><br>
+                            <label><input type="password" id="confirmNewPassword" name="confirmNewPassword"></label><br>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn" form="editPasswordForm">Confirm</button>
                         <button type="button" class="btn" data-dismiss="modal">Close</button>
                     </div>
                 </div>
