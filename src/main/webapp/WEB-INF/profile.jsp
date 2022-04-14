@@ -125,20 +125,23 @@
                     <div class="modal-body">
                         <form action="/edit-vehicle" method="POST" id="editForm">
                             <label><input class="form-control invisible d-none" type="text" id="editVehicleID" name="editVehicleID"></label><br>
-                            <label for="editMake">Edit Make</label><br>
-                            <input class="form-control" type="text" id="editMake" name="editMake" required><br>
+                            <label for="editMakeInput">Edit Make</label><br>
+                            <input id="editMakeInput" class="form-control" name="editMake" type="text" list="editMake" required>
+                            <datalist id="editMake"></datalist><br>
                             <label for="editModel">Edit Model</label><br>
                             <input class="form-control" type="text" id="editModel" name="editModel" required><br>
                             <label for="editYear">Edit Year</label><br>
                             <input class="form-control" type="number" min="1900" max="2100" id="editYear" name="editYear" required><br>
-                            <label for="editColor">Edit Color</label><br>
-                            <input class="form-control" type="text" id="editColor" name="editColor" required><br>
+                            <label for="editColorInput">Edit Color</label><br>
+                            <input id="editColorInput" class="form-control" name="editColor" type="text" list="editColor" required>
+                            <datalist id="editColor"></datalist><br>
                             <label for="editPrice">Edit Price</label><br>
                             <input class="form-control" type="number" min="0" id="editPrice" name="editPrice" required><br>
                             <label for="editMileage">Edit Mileage</label><br>
                             <input class="form-control" type="number" min="0" id="editMileage" name="editMileage" required><br>
-                            <label for="editType">Edit Type</label><br>
-                            <input class="form-control" type="text" id="editType" name="editType" required><br>
+                            <label for="editTypeInput">Edit Type</label><br>
+                            <input id="editTypeInput" class="form-control" name="editType" type="text" list="editType" required>
+                            <datalist id="editType"></datalist><br>
                             <label for="editDescription">Edit Description</label><br>
                             <input class="form-control" type="text" id="editDescription" name="editDescription"><br>
                             <label><input type="text" id="editUsername" name="editUsername" class="invisible d-none"></label>
@@ -163,6 +166,9 @@
         <script>
             "use strict";
             let vehiclesArray = [];
+			let makesArray = [];
+			let colorsArray = [];
+			let typesArray = [];
             <c:forEach var="vehicle" items="${ads}">
             vehiclesArray.push({
                 id: ${vehicle.id},
@@ -177,7 +183,37 @@
                 type: "${vehicle.type}",
                 description: "${vehicle.description}"
             });
+			if (!makesArray.includes("${vehicle.make}")) {
+				makesArray.push("${vehicle.make}");
+			}
+			if (!colorsArray.includes("${vehicle.color}")) {
+				colorsArray.push("${vehicle.color}");
+			}
+			if(!typesArray.includes("${vehicle.type}")) {
+				typesArray.push("${vehicle.type}");
+            }
             </c:forEach>
+            makesArray.sort();
+			colorsArray.sort();
+			typesArray.sort();
+			let editMakeList = document.getElementById("editMake");
+			makesArray.forEach(make => {
+				let newMake = document.createElement("option");
+				newMake.text = make;
+				editMakeList.appendChild(newMake);
+			});
+			let editColorList = document.getElementById("editColor");
+			colorsArray.forEach(color => {
+				let newColor = document.createElement("option");
+				newColor.text = color;
+				editColorList.appendChild(newColor);
+			});
+			let editTypeList = document.getElementById("editType");
+			typesArray.forEach(type => {
+				let newType = document.createElement("option");
+				newType.text = type;
+				editTypeList.appendChild(newType);
+            });
             vehiclesArray.forEach((vehicle => {
                 let vehicleCard = document.createElement("div");
                 vehicleCard.setAttribute("class", "card col-3 mx-3 mb-3 px-0");
