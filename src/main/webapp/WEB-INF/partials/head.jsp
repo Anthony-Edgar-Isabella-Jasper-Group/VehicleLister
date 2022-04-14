@@ -12,14 +12,22 @@
     }
     .btn:hover {
         color: white;
-        background-color: darkslategray;
+        background-color: #1d3131;
         transition: 0.7s;
+    }
+    #clearFiltersButton {
+        background-color: darkslategray;
     }
     a {
         color: black;
     }
     a:hover {
         color: darkslategray;
+    }
+    #filters {
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 30px;
     }
 </style>
 
