@@ -7,7 +7,7 @@
 </head>
 <body>
     <jsp:include page="partials/navbar.jsp" />
-    <div class="container">
+    <div class="container w-50">
         <h1 class="text-center mt-4">Register</h1>
         <form action="/register" method="post">
             <div class="form-group">
@@ -26,7 +26,9 @@
                 <label for="confirm_password">Confirm Password</label>
                 <input id="confirm_password" name="confirm_password" class="form-control" type="password">
             </div>
-            <input type="submit" class="btn btn-secondary btn-block">
+            <div class="d-flex justify-content-center">
+                <input type="submit" class="btn btn-block my-5 w-50">
+            </div>
         </form>
         <div class="text-center"><a href="/login">Already a user? Log in!</a></div>
     </div>

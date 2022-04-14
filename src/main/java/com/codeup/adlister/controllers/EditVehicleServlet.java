@@ -28,9 +28,9 @@ public class EditVehicleServlet extends HttpServlet{
         User user = (User) request.getSession().getAttribute("user");
         String id = request.getParameter("editVehicleID");
         long longID = Long.parseLong(id);
-        String year = request.getParameter("editYear");
-        String mileage = request.getParameter("editMileage");
-        String price = request.getParameter("editPrice");
+        String year = request.getParameter("year");
+        String mileage = request.getParameter("mileage");
+        String price = request.getParameter("price");
        if(Validation.isValidShort(year) && Validation.isValidFloat(price) && Validation.isValidInt(mileage)){
            Vehicle ad = new Vehicle(Long.parseLong(request.getParameter("editVehicleID")), request.getParameter("editUsername"), request.getParameter("editEmail"), request.getParameter("editMake"), request.getParameter("editModel"), Short.parseShort(request.getParameter("editYear")), request.getParameter("editColor"), Float.parseFloat(request.getParameter("editPrice")), Integer.parseInt(request.getParameter("editMileage")), request.getParameter("editType"), request.getParameter("editDescription"));
            DaoFactory.getAdsDao().edit(ad);
