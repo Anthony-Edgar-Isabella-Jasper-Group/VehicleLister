@@ -129,6 +129,14 @@
 		}
 		let fillDropdownMenus = () => {
 			let makesDropdown = document.getElementById("makesFilterDropdown");
+			let clearMakeFilter = document.createElement("button");
+			clearMakeFilter.setAttribute("class", "dropdown-item");
+			clearMakeFilter.innerText = "[Clear Filter]";
+			clearMakeFilter.addEventListener("click", () => {
+				selectedMake = null;
+				filterVehicles();
+			});
+			makesDropdown.appendChild(clearMakeFilter);
 			makesArray.forEach(make => {
 				let newMake = document.createElement("button");
 				newMake.setAttribute("class", "dropdown-item");
@@ -140,6 +148,14 @@
 				makesDropdown.appendChild(newMake);
 			});
 			let yearsDropdown = document.getElementById("yearsFilterDropdown");
+			let clearYearFilter = document.createElement("button");
+			clearYearFilter.setAttribute("class", "dropdown-item");
+			clearYearFilter.innerText = "[Clear Filter]";
+			clearYearFilter.addEventListener("click", () => {
+				selectedYear = null;
+				filterVehicles();
+			});
+			yearsDropdown.appendChild(clearYearFilter);
 			yearsArray.forEach(year => {
 				let newYear = document.createElement("button");
 				newYear.setAttribute("class", "dropdown-item");
@@ -151,6 +167,14 @@
 				yearsDropdown.appendChild(newYear);
 			});
 			let typesDropdown = document.getElementById("typesFilterDropdown");
+			let clearTypeFilter = document.createElement("button");
+			clearTypeFilter.setAttribute("class", "dropdown-item");
+			clearTypeFilter.innerText = "[Clear Filter]";
+			clearTypeFilter.addEventListener("click", () => {
+				selectedType = null;
+				filterVehicles();
+			});
+			typesDropdown.appendChild(clearTypeFilter);
 			typesArray.forEach(type => {
 				let newType = document.createElement("button");
 				newType.setAttribute("class", "dropdown-item");
@@ -162,6 +186,14 @@
 				typesDropdown.appendChild(newType);
 			});
 			let colorsDropdown = document.getElementById("colorsFilterDropdown");
+			let clearColorFilter = document.createElement("button");
+			clearColorFilter.setAttribute("class", "dropdown-item");
+			clearColorFilter.innerText = "[Clear Filter]";
+			clearColorFilter.addEventListener("click", () => {
+				selectedColor = null;
+				filterVehicles();
+			});
+			colorsDropdown.appendChild(clearColorFilter);
 			colorsArray.forEach(color => {
 				let newColor = document.createElement("button");
 				newColor.setAttribute("class", "dropdown-item");
