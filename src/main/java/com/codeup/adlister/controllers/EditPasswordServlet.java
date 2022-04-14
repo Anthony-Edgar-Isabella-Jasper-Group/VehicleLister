@@ -12,20 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
-@WebServlet(name = "controllers.DeleteVehicleServlet", urlPatterns = "/delete")
-public class DeleteVehicleServlet extends HttpServlet{
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/login");
-            return;
-        }
-        request.getRequestDispatcher("/").forward(request, response);
-    }
+@WebServlet(name = "controllers.EditPasswordServlet", urlPatterns = "/edit-password")
+public class EditPasswordServlet extends HttpServlet{
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = (User) request.getSession().getAttribute("user");
-        DaoFactory.getAdsDao().delete(Long.parseLong(request.getParameter("deleteVehicleID")));
+        String newPassword = request.getParameter("newPassword");
+        String confirmNewPassword = request.getParameter("confirmNewPassword");
+        if(newPassword.equals(confirmNewPassword)){
+            DaoFactory.getUsersDao().editPassword(user, newPassword);
+        }
+
+
         response.sendRedirect("/profile");
     }
 }
