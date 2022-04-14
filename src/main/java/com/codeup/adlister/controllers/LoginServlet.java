@@ -18,7 +18,11 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("/profile");
             return;
         }
+        request.getSession().getAttribute("alert");
+        request.getSession().getAttribute("username");
+        System.out.println(request.getSession().getAttribute("alert"));
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        request.getSession().setAttribute("alert", false);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -30,9 +34,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
-
         boolean validAttempt = Password.check(password, user.getPassword());
-
         if (validAttempt) {
             request.getSession().setAttribute("user", user);
             response.sendRedirect("/profile");

@@ -100,9 +100,13 @@
                         <h5 id="editPasswordTitle" class="modal-title">
                             Please enter your new password.
                         </h5>
-                        <form action="/edit-password" method="POST" id="editPasswordForm">
-                            <label><input type="password" id="newPassword" name="newPassword"></label><br>
-                            <label><input type="password" id="confirmNewPassword" name="confirmNewPassword"></label><br>
+                        <form action="/edit-password" method="POST" id="editPasswordForm" class="text-right">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" name="newPassword" class="mr-5">
+                            <br>
+                            <label>Confirm New Password</label>
+                            <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="mr-5">
+                            <br>
                         </form>
                     </div>
                     <div class="modal-footer">
