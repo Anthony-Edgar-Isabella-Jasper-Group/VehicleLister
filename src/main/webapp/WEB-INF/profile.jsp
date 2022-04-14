@@ -63,13 +63,13 @@
                             <label for="editModel">Edit Model</label><br>
                             <input class="form-control" type="text" id="editModel" name="editModel" required><br>
                             <label for="editYear">Edit Year</label><br>
-                            <input class="form-control" type="text" id="editYear" name="editYear" required><br>
+                            <input class="form-control" type="number" min="1900" max="2100" id="editYear" name="editYear" required><br>
                             <label for="editColor">Edit Color</label><br>
                             <input class="form-control" type="text" id="editColor" name="editColor" required><br>
                             <label for="editPrice">Edit Price</label><br>
-                            <input class="form-control" type="text" id="editPrice" name="editPrice" required><br>
+                            <input class="form-control" type="number" min="0" id="editPrice" name="editPrice" required><br>
                             <label for="editMileage">Edit Mileage</label><br>
-                            <input class="form-control" type="text" id="editMileage" name="editMileage" required><br>
+                            <input class="form-control" type="number" min="0" id="editMileage" name="editMileage" required><br>
                             <label for="editType">Edit Type</label><br>
                             <input class="form-control" type="text" id="editType" name="editType" required><br>
                             <label for="editDescription">Edit Description</label><br>

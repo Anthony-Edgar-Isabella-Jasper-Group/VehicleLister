@@ -47,7 +47,7 @@
                     </div>
                     <div class="form-group">
                         <label for="year">Year</label>
-                        <input id="year" name="year" class="form-control" type="text" required>
+                        <input class="form-control" type="number" min="1900" max="2100" id="year" name="year" required>
                     </div>
                     <div class="form-group">
                         <label for="color">Color</label>
@@ -55,11 +55,11 @@
                     </div>
                     <div class="form-group">
                         <label for="price">Price</label>
-                        <input id="price" name="price" class="form-control" type="text" required>
+                        <input class="form-control" type="number" min="0" id="price" name="price" required>
                     </div>
                     <div class="form-group">
                         <label for="mileage">Mileage</label>
-                        <input id="mileage" name="mileage" class="form-control" type="text" required>
+                        <input class="form-control" type="number" min="0" id="mileage" name="mileage" required>
                     </div>
                     <div class="form-group">
                         <label for="type">Type</label>
