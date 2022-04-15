@@ -1,12 +1,27 @@
 package com.codeup.adlister.dao;
 
+import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MySQLUsersDao implements Users {
     private Connection connection;
+
+    @Override
+    public List<User> all() {
+        PreparedStatement stmt = null;
+        try {
+            stmt = connection.prepareStatement("SELECT * FROM users");
+            ResultSet rs = stmt.executeQuery();
+            return createUserList(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving all ads.", e);
+        }
+    }
 
     public MySQLUsersDao(Config config) {
         try {
@@ -35,15 +50,26 @@ public class MySQLUsersDao implements Users {
     }
 
     @Override
-    public User findByEmail(String email) {
-        String query = "SELECT * FROM users WHERE email = ? LIMIT 1";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, email);
-            return extractUser(stmt.executeQuery());
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding a user by email", e);
+    public String findByEmail(String email) {
+        List<User> users = all();
+        System.out.println(users.get(0));
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            System.out.println(user.getEmail());
+            if (user.getEmail().equals(email)) {
+                return user.getUsername();
+            }
+
         }
+        return "No user found with that email.";
+//        String query = "SELECT * FROM users WHERE email = ? LIMIT 1";
+//        try {
+//            PreparedStatement stmt = connection.prepareStatement(query);
+//            stmt.setString(1, email);
+//            return extractUser(stmt.executeQuery());
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error finding a user by email", e);
+//        }
     }
 
     @Override
@@ -111,4 +137,11 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+    private List<User> createUserList(ResultSet rs) throws SQLException {
+        List<User> users = new ArrayList<>();
+        while (rs.next()) {
+            users.add(extractUser(rs));
+        }
+        return users;
+    }
 }
