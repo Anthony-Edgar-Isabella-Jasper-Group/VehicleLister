@@ -17,10 +17,9 @@ public class ForgotUsernameServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = request.getParameter("userEmail");
-        User user = DaoFactory.getUsersDao().findByEmail(email);
+        String username = DaoFactory.getUsersDao().findByEmail(email);
         request.setAttribute("message", "Here is your username ");
-        request.getSession().setAttribute("username", user.getUsername());
-        System.out.println(user.getUsername());
+        request.getSession().setAttribute("username", username);
         request.getSession().setAttribute("alert", true);
         response.sendRedirect("/login");
     }
