@@ -17,7 +17,7 @@ import java.io.IOException;
 public class CheckSecurityAnswerServlet extends HttpServlet{
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("forgotUser");
         String answer = request.getParameter("security-answer");
 
         boolean correctAnswer = Password.check(answer, user.getSecurityAnswer());
