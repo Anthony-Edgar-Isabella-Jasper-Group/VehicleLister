@@ -26,6 +26,19 @@
                 <label for="confirm_password">Confirm Password</label>
                 <input id="confirm_password" name="confirm_password" class="form-control" type="password">
             </div>
+            <div class="form-group">
+                <label for="security-question-input">Choose a Security Question</label><br>
+                <input list="security-question" id="security-question-input" name ="security-question" class="form-control">
+                <datalist id="security-question">
+                    <option value="What was the name of your first pet?"></option>
+                    <option value="What city where you born in?"></option>
+                    <option value="What is your best friends name?"></option>
+                </datalist>
+            </div>
+            <div class="form-group">
+                <label for="security-answer">Answer for Security Question</label>
+                <input type="text" class="form-control" id="security-answer" name="security-answer">
+            </div>
             <div class="d-flex justify-content-center">
                 <input type="submit" class="btn btn-block my-5 w-50">
             </div>

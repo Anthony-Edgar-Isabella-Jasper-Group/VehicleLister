@@ -28,4 +28,6 @@ public class DeleteVehicleServlet extends HttpServlet{
         DaoFactory.getAdsDao().delete(Long.parseLong(request.getParameter("deleteVehicleID")));
         response.sendRedirect("/profile");
     }
+
+
 }
