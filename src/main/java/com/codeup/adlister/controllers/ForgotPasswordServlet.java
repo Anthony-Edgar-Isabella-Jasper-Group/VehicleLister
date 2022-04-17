@@ -18,7 +18,7 @@ public class ForgotPasswordServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String email = request.getParameter("userEmailForPassword");
         User user = DaoFactory.getUsersDao().findByEmail(email);
-        request.getSession().setAttribute("user", user);
+        request.getSession().setAttribute("forgotUser", user);
         request.getSession().setAttribute("securityQuestion", user.getSecurityQuestion());
         request.getRequestDispatcher("/WEB-INF/forgot-password.jsp").forward(request, response);
     }

@@ -17,16 +17,18 @@ import java.io.IOException;
 public class ResetPasswordServlet extends HttpServlet{
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("forgotUser");
         String newPassword = request.getParameter("resetPassword");
         String confirmNewPassword = request.getParameter("confirmResetPassword");
         if(newPassword.equals(confirmNewPassword)){
             DaoFactory.getUsersDao().editPassword(user, newPassword);
+            request.getSession().removeAttribute("forgotUser");
             request.getSession().setAttribute("message", "Your password has been reset");
             request.getSession().setAttribute("reset", true);
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             request.getSession().setAttribute("reset", false);
         }else {
+            request.getSession().removeAttribute("forgotUser");
             request.getSession().setAttribute("message", "Your password must match");
             request.getSession().setAttribute("reset", true);
             request.getRequestDispatcher("/WEB-INF/reset-password.jsp").forward(request, response);
