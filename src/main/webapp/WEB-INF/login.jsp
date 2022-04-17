@@ -19,7 +19,7 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <input id="password" name="password" class="form-control" type="password">
-                <div class="text-right"><a href="#">Forgot Password?</a></div>
+                <div class="text-right"><a href="#" data-toggle="modal" data-target="#forgotPasswordModal" >Forgot Password?</a></div>
             </div>
             <div class="d-flex justify-content-center">
                 <input type="submit" class="btn btn-block my-5 w-50" value="Log In">
@@ -39,7 +39,7 @@
                 <div class="modal-body text-center">
                     <h5 id="forgotUsername" class="modal-title">
                         What is the email you used to sign up?
-                    </h5>
+                    </h5><br>
                     <form action="/forgot-username" method="POST" id="forgotUsernameForm">
                         <label><input type="text" id="userEmail" name="userEmail"></label><br>
                     </form>
@@ -51,14 +51,38 @@
             </div>
         </div>
     </div>
-    <script>
-        console.log(${alert});
-        console.log("Hello")
-    </script>
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h5 id="forgotPassword" class="modal-title">
+                        To get your security question.<br> What is the email you used to sign up?
+                    </h5><br>
+                    <form action="/forgot-password" method="POST" id="forgotPasswordForm">
+                        <label><input type="text" id="userEmailForPassword" name="userEmailForPassword"></label><br>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn" form="forgotPasswordForm">Confirm</button>
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <c:if test = "${alert}">
                     <script>
-                        window.alert("Here is your username ${username}");
+                        window.alert("${message} ${username}");
                     </script>
+    </c:if>
+    <c:if test = "${reset}">
+        <script>
+            window.alert("${message}");
+        </script>
     </c:if>
 <%--    <c:choose>--%>
 <%--        <c:when test="${alert == true}">--%>

@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
         }
         request.getSession().getAttribute("alert");
         request.getSession().getAttribute("username");
-        System.out.println(request.getSession().getAttribute("alert"));
+        request.getSession().getAttribute("message");
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         request.getSession().setAttribute("alert", false);
     }

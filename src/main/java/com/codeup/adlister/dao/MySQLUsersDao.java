@@ -27,9 +27,9 @@ public class MySQLUsersDao implements Users {
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
-                config.getUrl(),
-                config.getUsername(),
-                config.getPassword()
+                    config.getUrl(),
+                    config.getUsername(),
+                    config.getPassword()
             );
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
@@ -50,18 +50,17 @@ public class MySQLUsersDao implements Users {
     }
 
     @Override
-    public String findByEmail(String email) {
+    public User findByEmail(String email) {
         List<User> users = all();
         System.out.println(users.get(0));
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
-            System.out.println(user.getEmail());
             if (user.getEmail().equals(email)) {
-                return user.getUsername();
+                return user;
             }
 
         }
-        return "No user found with that email.";
+        return null;
 //        String query = "SELECT * FROM users WHERE email = ? LIMIT 1";
 //        try {
 //            PreparedStatement stmt = connection.prepareStatement(query);
@@ -74,12 +73,14 @@ public class MySQLUsersDao implements Users {
 
     @Override
     public Long insert(User user) {
-        String query = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
+        String query = "INSERT INTO users(username, email, password, security_question, security_answer) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
+            stmt.setString(4, user.getSecurityQuestion());
+            stmt.setString(5, user.getSecurityAnswer());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -90,14 +91,16 @@ public class MySQLUsersDao implements Users {
     }
 
     private User extractUser(ResultSet rs) throws SQLException {
-        if (! rs.next()) {
+        if (!rs.next()) {
             return null;
         }
         return new User(
-            rs.getLong("id"),
-            rs.getString("username"),
-            rs.getString("email"),
-            rs.getString("password")
+                rs.getLong("id"),
+                rs.getString("username"),
+                rs.getString("email"),
+                rs.getString("password"),
+                rs.getString("security_question"),
+                rs.getString("security_answer")
         );
     }
 
@@ -140,8 +143,19 @@ public class MySQLUsersDao implements Users {
     private List<User> createUserList(ResultSet rs) throws SQLException {
         List<User> users = new ArrayList<>();
         while (rs.next()) {
-            users.add(extractUser(rs));
+            users.add(makeUser(rs));
         }
         return users;
+    }
+
+    private User makeUser(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getLong("id"),
+                rs.getString("username"),
+                rs.getString("email"),
+                rs.getString("password"),
+                rs.getString("security_question"),
+                rs.getString("security_answer")
+        );
     }
 }

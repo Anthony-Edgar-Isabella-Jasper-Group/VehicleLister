@@ -11,6 +11,8 @@ CREATE TABLE users
     username VARCHAR(30) NOT NULL,
     email    VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    security_question VARCHAR(255) NOT NULL,
+    security_answer VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (username, email)
 );
@@ -90,8 +92,8 @@ VALUES ('Honda'),
        ('Dodge'),
        ('Chevrolet'),
        ('BMW');
-INSERT INTO users(username, email, password)
-VALUES ('test', 'test@testmail.com', '$2a$12$.wCMmof5KF7tZv9w2BPLz.8t6qSP4t8lOdcj9qFOnju.viucLVOqu');
+INSERT INTO users(username, email, password, security_question, security_answer)
+VALUES ('test', 'test@testmail.com', '$2a$12$.wCMmof5KF7tZv9w2BPLz.8t6qSP4t8lOdcj9qFOnju.viucLVOqu', 'What was the name of your first pet?', '$2a$12$ULouLrHYG6Z3cxJuTRNkLes6ZFTv6ktBKxstMkdd1lUCMr5iVsZ32');
 INSERT INTO vehicles(user_id, make_id, model, year, color_id, price, mileage, type_id, description)
 VALUES (1, 1, 'Civic', 2018, 1, 10000, 20000, 1, 'Jasper'),
        (1, 2, 'Challenger', 2017, 3, 15000, 50000, 2, 'Edgar'),
