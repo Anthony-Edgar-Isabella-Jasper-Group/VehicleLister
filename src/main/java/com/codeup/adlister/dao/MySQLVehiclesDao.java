@@ -429,10 +429,13 @@ public class MySQLVehiclesDao implements Vehicles {
 
     @Override
     public void delete(Long id) {
-        PreparedStatement statement;
-        String query = "DELETE FROM vehicles WHERE id = ?";
         try {
-            statement = connection.prepareStatement(query);
+            PreparedStatement deleteStatement;
+            deleteStatement = connection.prepareStatement("DELETE FROM vehicle_purposes WHERE vehicle_id = ?");
+            deleteStatement.setLong(1, id);
+            deleteStatement.executeUpdate();
+            PreparedStatement statement;
+            statement = connection.prepareStatement("DELETE FROM vehicles WHERE id = ?");
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
