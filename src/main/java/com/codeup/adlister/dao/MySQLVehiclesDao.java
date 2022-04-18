@@ -183,7 +183,7 @@ public class MySQLVehiclesDao implements Vehicles {
     }
 
     @Override
-    public Long insert(Vehicle vehicle) {
+    public void insert(Vehicle vehicle, String purpose) {
         int makeId;
         try {
             PreparedStatement findMake;
@@ -253,6 +253,7 @@ public class MySQLVehiclesDao implements Vehicles {
         String year = "" + vehicle.getYear();
         String price = "" + vehicle.getPrice();
         String mileage = "" + vehicle.getMileage();
+        long vehicleId;
         try {
             statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, userId);
@@ -267,9 +268,12 @@ public class MySQLVehiclesDao implements Vehicles {
             statement.executeUpdate();
             ResultSet rs = statement.getGeneratedKeys();
             rs.next();
-            return rs.getLong(1);
+            vehicleId = rs.getLong(1);
         } catch (SQLException e) {
             throw new RuntimeException("Error adding Vehicle to vehicle database!", e);
+        }
+        if (!purpose.equals("")) {
+            addPurpose(vehicleId, purpose);
         }
     }
 

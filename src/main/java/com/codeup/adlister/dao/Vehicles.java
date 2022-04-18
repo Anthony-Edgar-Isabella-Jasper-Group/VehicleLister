@@ -25,7 +25,7 @@ public interface Vehicles {
 
     List<Vehicle> findByUser_Id(long user_id);
 
-    Long insert(Vehicle vehicle);
+    void insert(Vehicle vehicle, String purpose);
 
     void delete(Long id);
 

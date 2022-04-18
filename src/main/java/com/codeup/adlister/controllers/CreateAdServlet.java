@@ -20,9 +20,10 @@ public class CreateAdServlet extends HttpServlet {
         String year = request.getParameter("year");
         String mileage = request.getParameter("mileage");
         String price = request.getParameter("price");
+        String purpose = request.getParameter("purpose");
         if (Validation.isValidShort(year) && Validation.isValidFloat(price) && Validation.isValidInt(mileage)) {
             Vehicle ad = new Vehicle(user.getUsername(), user.getEmail(), request.getParameter("make"), request.getParameter("model"), Short.parseShort(request.getParameter("year")), request.getParameter("color"), Float.parseFloat(request.getParameter("price")), Integer.parseInt(request.getParameter("mileage")), request.getParameter("type"), new ArrayList<>(),request.getParameter("description"));
-            DaoFactory.getAdsDao().insert(ad);
+            DaoFactory.getAdsDao().insert(ad, purpose);
             response.sendRedirect("/");
         } else {
             response.sendRedirect("/");
