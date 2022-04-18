@@ -7,12 +7,12 @@ USE vehicle_list;
 
 CREATE TABLE users
 (
-    id       INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    username VARCHAR(30) NOT NULL,
-    email    VARCHAR(50) NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    id                INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    username          VARCHAR(30)  NOT NULL,
+    email             VARCHAR(50)  NOT NULL,
+    password          VARCHAR(255) NOT NULL,
     security_question VARCHAR(255) NOT NULL,
-    security_answer VARCHAR(255) NOT NULL,
+    security_answer   VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (username, email)
 );
@@ -20,7 +20,7 @@ CREATE TABLE users
 CREATE TABLE purposes
 (
     id      INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    purpose VARCHAR(30) NOT NULL,
+    purpose VARCHAR(30)  NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (purpose)
 );
@@ -28,7 +28,7 @@ CREATE TABLE purposes
 CREATE TABLE makes
 (
     id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    make VARCHAR(30) NOT NULL,
+    make VARCHAR(30)  NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (make)
 );
@@ -36,7 +36,7 @@ CREATE TABLE makes
 CREATE TABLE types
 (
     id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    type VARCHAR(20) NOT NULL,
+    type VARCHAR(20)  NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (type)
 );
@@ -44,7 +44,7 @@ CREATE TABLE types
 CREATE TABLE colors
 (
     id    INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    color VARCHAR(20) NOT NULL,
+    color VARCHAR(20)  NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (color)
 );
@@ -54,7 +54,7 @@ CREATE TABLE vehicles
     id          INT UNSIGNED NOT NULL AUTO_INCREMENT,
     user_id     INT UNSIGNED NOT NULL,
     make_id     INT UNSIGNED NOT NULL,
-    model       VARCHAR(20) NOT NULL,
+    model       VARCHAR(20)  NOT NULL,
     year        INT          NOT NULL,
     color_id    INT UNSIGNED,
     price       FLOAT        NOT NULL,
@@ -92,10 +92,25 @@ VALUES ('Honda'),
        ('Dodge'),
        ('Chevrolet'),
        ('BMW');
+INSERT INTO purposes(purpose)
+VALUES ('cargo transport'),
+       ('racing'),
+       ('off-roading'),
+       ('commuting'),
+       ('luxury transport'),
+       ('towing');
 INSERT INTO users(username, email, password, security_question, security_answer)
-VALUES ('test', 'test@testmail.com', '$2a$12$.wCMmof5KF7tZv9w2BPLz.8t6qSP4t8lOdcj9qFOnju.viucLVOqu', 'What was the name of your first pet?', '$2a$12$ULouLrHYG6Z3cxJuTRNkLes6ZFTv6ktBKxstMkdd1lUCMr5iVsZ32');
+VALUES ('test', 'test@testmail.com', '$2a$12$.wCMmof5KF7tZv9w2BPLz.8t6qSP4t8lOdcj9qFOnju.viucLVOqu',
+        'What was the name of your first pet?', '$2a$12$ULouLrHYG6Z3cxJuTRNkLes6ZFTv6ktBKxstMkdd1lUCMr5iVsZ32');
 INSERT INTO vehicles(user_id, make_id, model, year, color_id, price, mileage, type_id, description)
 VALUES (1, 1, 'Civic', 2018, 1, 10000, 20000, 1, 'Jasper'),
        (1, 2, 'Challenger', 2017, 3, 15000, 50000, 2, 'Edgar'),
        (1, 3, 'Trailblazer', 2007, 2, 5000, 100000, 3, 'Isabella'),
        (1, 4, '540i', 2000, 4, 5000, 200000, 1, 'Anthony');
+INSERT INTO vehicle_purposes(vehicle_id, purpose_id)
+VALUES (1, 4),
+       (2, 2),
+       (3, 4),
+       (3, 1),
+       (4, 2),
+       (4, 5);

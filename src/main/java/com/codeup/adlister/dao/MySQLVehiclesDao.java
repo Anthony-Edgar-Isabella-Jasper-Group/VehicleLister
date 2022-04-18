@@ -182,48 +182,6 @@ public class MySQLVehiclesDao implements Vehicles {
         }
     }
 
-    public int getMakeId(String make) {
-        PreparedStatement statement;
-        String query = "SELECT id FROM makes WHERE make = ?";
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setString(1, make);
-            ResultSet rs = statement.executeQuery();
-            rs.next();
-            return rs.getInt("id");
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding make id from database");
-        }
-    }
-
-    public int getColorId(String color) {
-        PreparedStatement statement;
-        String query = "SELECT id FROM colors WHERE color = ?";
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setString(1, color);
-            ResultSet rs = statement.executeQuery();
-            rs.next();
-            return rs.getInt("id");
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding color id from database");
-        }
-    }
-
-    public int getTypeId(String type) {
-        PreparedStatement statement;
-        String query = "SELECT id FROM types WHERE type = ?";
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setString(1, type);
-            ResultSet rs = statement.executeQuery();
-            rs.next();
-            return rs.getInt("id");
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding type id from database");
-        }
-    }
-
     @Override
     public Long insert(Vehicle vehicle) {
         int makeId;
@@ -324,11 +282,48 @@ public class MySQLVehiclesDao implements Vehicles {
     }
 
     private Vehicle extractVehicle(ResultSet rs) throws SQLException {
-        return new Vehicle(rs.getLong("id"), rs.getString("username"), rs.getString("email"), rs.getString("make"), rs.getString("model"), rs.getShort("year"), rs.getString("color"), rs.getFloat("price"), rs.getInt("mileage"), rs.getString("type"), rs.getString("description"));
+        PreparedStatement statement;
+        String findPurposes = "SELECT purpose FROM purposes p JOIN vehicle_purposes vp on p.id = vp.purpose_id WHERE vehicle_id = ?";
+        Long vehicleId = rs.getLong("id");
+        statement = connection.prepareStatement(findPurposes);
+        statement.setLong(1, vehicleId);
+        ResultSet purposesRs = statement.executeQuery();
+        ArrayList<String> vehiclePurposes = new ArrayList<>();
+        while(purposesRs.next()) {
+            vehiclePurposes.add(purposesRs.getString("purpose"));
+        }
+        return new Vehicle(vehicleId, rs.getString("username"), rs.getString("email"), rs.getString("make"), rs.getString("model"), rs.getShort("year"), rs.getString("color"), rs.getFloat("price"), rs.getInt("mileage"), rs.getString("type"), vehiclePurposes, rs.getString("description"));
     }
-
+    public void addPurpose(long vehicleId, String purpose) {
+        int purposeId;
+        try {
+            PreparedStatement findPurpose;
+            String purposeQuery = "SELECT id FROM purposes WHERE purpose = ?";
+            findPurpose = connection.prepareStatement(purposeQuery);
+            findPurpose.setString(1, purpose);
+            ResultSet purposeRs = findPurpose.executeQuery();
+            if(purposeRs.next()) {
+                purposeId = purposeRs.getInt("id");
+            } else {
+                String purposeStatement = "INSERT INTO purposes (purpose) VALUES (?)";
+                PreparedStatement insertPurpose = connection.prepareStatement(purposeStatement, Statement.RETURN_GENERATED_KEYS);
+                insertPurpose.setString(1, purpose);
+                insertPurpose.executeUpdate();
+                purposeRs = insertPurpose.getGeneratedKeys();
+                purposeRs.next();
+                purposeId = purposeRs.getInt(1);
+            }
+            String addPurposeStatement = "INSERT INTO vehicle_purposes (vehicle_id, purpose_id) VALUES(?, ?)";
+            PreparedStatement addPurpose = connection.prepareStatement(addPurposeStatement, Statement.RETURN_GENERATED_KEYS);
+            addPurpose.setLong(1, vehicleId);
+            addPurpose.setInt(2, purposeId);
+            addPurpose.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding purpose in database", e);
+        }
+    }
     @Override
-    public void edit(Vehicle vehicle) {
+    public void edit(Vehicle vehicle, String newPurpose) {
         int makeId;
         try {
             PreparedStatement findMake;
@@ -410,11 +405,10 @@ public class MySQLVehiclesDao implements Vehicles {
             statement.setString(8, vehicle.getDescription());
             statement.setString(9, vehicleId);
             statement.executeUpdate();
-
-            System.out.println("I'm working");;
         } catch (SQLException e) {
             throw new RuntimeException("Error editing Vehicle to vehicle database!", e);
         }
+        addPurpose(vehicle.getId(), newPurpose);
     }
     @Override
     public void delete(Long id){

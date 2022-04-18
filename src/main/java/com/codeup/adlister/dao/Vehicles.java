@@ -29,6 +29,6 @@ public interface Vehicles {
 
     void delete(Long id);
 
-    void edit(Vehicle vehicle);
+    void edit(Vehicle vehicle, String purpose);
 
 }

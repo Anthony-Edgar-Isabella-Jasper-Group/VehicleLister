@@ -1,5 +1,8 @@
 package com.codeup.adlister.models;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Vehicle {
     private long id;
     private String username;
@@ -12,8 +15,9 @@ public class Vehicle {
     private int mileage;
     private String type;
     private String description;
+    private ArrayList<String> purposes;
 
-    public Vehicle(long id, String username, String email, String make, String model, short year, String color, float price, int mileage, String type, String description) {
+    public Vehicle(long id, String username, String email, String make, String model, short year, String color, float price, int mileage, String type, ArrayList<String> purposes, String description) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -24,10 +28,11 @@ public class Vehicle {
         this.price = price;
         this.mileage = mileage;
         this.type = type;
+        this.purposes = purposes;
         this.description = description;
     }
 
-    public Vehicle(String username, String email, String make, String model, short year, String color, float price, int mileage, String type, String description) {
+    public Vehicle(String username, String email, String make, String model, short year, String color, float price, int mileage, String type, ArrayList<String> purposes, String description) {
         this.username = username;
         this.email = email;
         this.make = make;
@@ -37,6 +42,7 @@ public class Vehicle {
         this.price = price;
         this.mileage = mileage;
         this.type = type;
+        this.purposes = purposes;
         this.description = description;
     }
 
@@ -78,6 +84,10 @@ public class Vehicle {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setPurposes(ArrayList<String> purposes) {
+        this.purposes = purposes;
     }
 
     public void setDescription(String description) {
@@ -122,6 +132,10 @@ public class Vehicle {
 
     public String getType() {
         return type;
+    }
+
+    public ArrayList<String> getPurposes() {
+        return purposes;
     }
 
     public String getDescription() {
