@@ -28,7 +28,6 @@ public class ResetPasswordServlet extends HttpServlet{
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             request.getSession().setAttribute("reset", false);
         }else {
-            request.getSession().removeAttribute("forgotUser");
             request.getSession().setAttribute("message", "Your password must match");
             request.getSession().setAttribute("reset", true);
             request.getRequestDispatcher("/WEB-INF/reset-password.jsp").forward(request, response);

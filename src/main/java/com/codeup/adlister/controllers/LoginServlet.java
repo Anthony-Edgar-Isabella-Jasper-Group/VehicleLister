@@ -31,6 +31,9 @@ public class LoginServlet extends HttpServlet {
         User user = DaoFactory.getUsersDao().findByUsername(username);
 
         if (user == null) {
+            request.getSession().setAttribute("message", "Incorrect ");
+            request.getSession().setAttribute("username", "");
+            request.getSession().setAttribute("alert", true);
             response.sendRedirect("/login");
             return;
         }
