@@ -18,9 +18,7 @@ import java.util.jar.JarOutputStream;
 public class IndividualVehicleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String vehicleAdId = request.getParameter("id");
-        System.out.println(vehicleAdId);
         Vehicle vehicle = DaoFactory.getAdsDao().findByVehicle_id(Integer.parseInt(vehicleAdId));
-        System.out.println(vehicle.getMake());
         request.setAttribute("vehicle", vehicle);
         request.getRequestDispatcher("/WEB-INF/ads/vehicle.jsp").forward(request, response);
 
