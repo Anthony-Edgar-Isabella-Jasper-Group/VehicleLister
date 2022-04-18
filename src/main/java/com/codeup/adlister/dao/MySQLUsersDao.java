@@ -52,7 +52,6 @@ public class MySQLUsersDao implements Users {
     @Override
     public User findByEmail(String email) {
         List<User> users = all();
-        System.out.println(users.get(0));
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
             if (user.getEmail().equals(email)) {
@@ -61,14 +60,6 @@ public class MySQLUsersDao implements Users {
 
         }
         return null;
-//        String query = "SELECT * FROM users WHERE email = ? LIMIT 1";
-//        try {
-//            PreparedStatement stmt = connection.prepareStatement(query);
-//            stmt.setString(1, email);
-//            return extractUser(stmt.executeQuery());
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Error finding a user by email", e);
-//        }
     }
 
     @Override
