@@ -46,6 +46,12 @@
                 </button>
                 <div class="dropdown-menu" id="yearsFilterDropdown"></div>
             </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="purposeFilterDropdownButton" data-toggle="dropdown">
+                    Select Purpose
+                </button>
+                <div class="dropdown-menu" id="purposeFilterDropdown"></div>
+            </div>
             <button class="btn" id="clearFiltersButton">Clear Filters</button>
         </div>
         <div id="vehicles" class="row d-flex justify-content-center"></div>
@@ -72,6 +78,8 @@
                             <dd id="vehicleMileage"></dd>
                             <dt>Type</dt>
                             <dd id="vehicleType"></dd>
+                            <dt>Purposes</dt>
+                            <dd id="vehiclePurposes"></dd>
                             <dt>Description</dt>
                             <dd id="vehicleDescription"></dd>
                         </dl>
@@ -117,6 +125,15 @@
 						$('#vehiclePrice').text(vehicle.price);
 						$('#vehicleMileage').text(vehicle.mileage);
 						$('#vehicleType').text(vehicle.type);
+						let oneVehiclePurposes;
+						vehicle.purposes.forEach((purpose, index) => {
+							if (index === 0) {
+								oneVehiclePurposes = purpose;
+							} else {
+								oneVehiclePurposes += ", " + purpose;
+							}
+						});
+						$('#vehiclePurposes').text(oneVehiclePurposes);
 						$('#vehicleDescription').text(vehicle.description);
 					});
 					newButton.innerText = "More Info";
@@ -204,6 +221,25 @@
 				});
 				colorsDropdown.appendChild(newColor);
 			});
+			let purposesDropdown = document.getElementById("purposeFilterDropdown");
+			let clearPurposesFilter = document.createElement("button");
+			clearPurposesFilter.setAttribute("class", "dropdown-item");
+			clearPurposesFilter.innerText = "[Clear Filter]";
+			clearPurposesFilter.addEventListener("click", () => {
+				selectedPurposes = [];
+				filterVehicles();
+			});
+			purposesDropdown.appendChild(clearPurposesFilter);
+			purposesArray.forEach(purpose => {
+				let newPurpose = document.createElement("button");
+				newPurpose.setAttribute("class", "dropdown-item");
+				newPurpose.innerText = purpose;
+				newPurpose.addEventListener("click", () => {
+					selectedPurposes.push(purpose);
+					filterVehicles();
+				});
+				purposesDropdown.appendChild(newPurpose);
+			});
 		}
 		let filterVehicles = () => {
 			let filteredVehiclesList = vehiclesToDisplay;
@@ -239,6 +275,20 @@
 					return filteredByType;
 				}, []);
 			}
+			if (selectedPurposes.length !== 0) {
+				filteredVehiclesList = filteredVehiclesList.reduce((filteredByPurposes, vehicle) => {
+					let containsPurpose = true;
+					selectedPurposes.forEach(purpose => {
+						if (!vehicle.purposes.includes(purpose)) {
+							containsPurpose = false;
+						}
+					});
+					if (containsPurpose) {
+						filteredByPurposes.push(vehicle);
+					}
+					return filteredByPurposes;
+				}, []);
+			}
 			displayVehicles(filteredVehiclesList);
 		}
 		let clearFilters = () => {
@@ -247,6 +297,7 @@
 			selectedMake = null;
 			selectedType = null;
 			selectedColor = null;
+			selectedPurposes = [];
 			displayVehicles(vehiclesToDisplay);
 		}
 		let vehiclesArray = [];
@@ -254,13 +305,16 @@
 		let typesArray = [];
 		let colorsArray = [];
 		let yearsArray = [];
+		let purposesArray = [];
 		let vehiclesToDisplay = [];
 		let selectedMake;
 		let selectedYear;
 		let selectedType;
 		let selectedColor;
+		let selectedPurposes = [];
+		let newVehicle;
 		<c:forEach var="vehicle" items="${ads}">
-		vehiclesArray.unshift({
+		newVehicle = {
 			id: ${vehicle.id},
 			username: "${vehicle.username}",
 			email: "${vehicle.email}",
@@ -271,25 +325,34 @@
 			price: ${vehicle.price},
 			mileage: ${vehicle.mileage},
 			type: "${vehicle.type}",
+			purposes: [],
 			description: "${vehicle.description}"
-		});
-		if (!makesArray.includes("${vehicle.make}")) {
-			makesArray.push("${vehicle.make}");
+		};
+		<c:forEach var="purpose" items="${vehicle.purposes}">
+		newVehicle.purposes.push("${purpose}");
+		if (!purposesArray.includes("${purpose}")) {
+			purposesArray.push("${purpose}");
 		}
-		if (!typesArray.includes("${vehicle.type}")) {
-			typesArray.push("${vehicle.type}");
+		</c:forEach>
+		vehiclesArray.unshift(newVehicle);
+		if (!makesArray.includes(newVehicle.make)) {
+			makesArray.push(newVehicle.make);
 		}
-		if (!colorsArray.includes("${vehicle.color}")) {
-			colorsArray.push("${vehicle.color}");
+		if (!typesArray.includes(newVehicle.type)) {
+			typesArray.push(newVehicle.type);
 		}
-		if (!yearsArray.includes("${vehicle.year}")) {
-			yearsArray.push("${vehicle.year}");
+		if (!colorsArray.includes(newVehicle.color)) {
+			colorsArray.push(newVehicle.color);
+		}
+		if (!yearsArray.includes(newVehicle.year)) {
+			yearsArray.push(newVehicle.year);
 		}
 		</c:forEach>
 		makesArray.sort();
 		typesArray.sort();
 		colorsArray.sort();
 		yearsArray.sort();
+		purposesArray.sort();
 		document.getElementById("clearFiltersButton").addEventListener("click", clearFilters);
 		fillDropdownMenus();
 		clearFilters();
