@@ -66,6 +66,10 @@
                         <input id="type" name="type" class="form-control" type="text" required>
                     </div>
                     <div class="form-group">
+                        <label for="purpose">Purpose</label>
+                        <input type="text" id="purpose" class="form-control" name="purpose">
+                    </div>
+                    <div class="form-group">
                         <label for="description">Description</label>
                         <input name="description" type="text" id="description" class="form-control">
                     </div>
