@@ -184,69 +184,9 @@ public class MySQLVehiclesDao implements Vehicles {
 
     @Override
     public void insert(Vehicle vehicle, String purpose) {
-        int makeId;
-        try {
-            PreparedStatement findMake;
-            String makeQuery = "SELECT id FROM makes WHERE make = ?";
-            findMake = connection.prepareStatement(makeQuery);
-            findMake.setString(1, vehicle.getMake());
-            ResultSet makeRs = findMake.executeQuery();
-            if (makeRs.next()) {
-                makeId = makeRs.getInt("id");
-            } else {
-                String makeStatement = "INSERT INTO makes (make) VALUES (?)";
-                PreparedStatement insertMake = connection.prepareStatement(makeStatement, Statement.RETURN_GENERATED_KEYS);
-                insertMake.setString(1, vehicle.getMake());
-                insertMake.executeUpdate();
-                makeRs = insertMake.getGeneratedKeys();
-                makeRs.next();
-                makeId = makeRs.getInt(1);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding make id from database.");
-        }
-        int colorId;
-        try {
-            PreparedStatement findColor;
-            String colorQuery = "SELECT id FROM colors WHERE color = ?";
-            findColor = connection.prepareStatement(colorQuery);
-            findColor.setString(1, vehicle.getColor());
-            ResultSet colorRs = findColor.executeQuery();
-            if (colorRs.next()) {
-                colorId = colorRs.getInt("id");
-            } else {
-                String colorStatement = "INSERT INTO colors (color) VALUES (?)";
-                PreparedStatement insertColor = connection.prepareStatement(colorStatement, Statement.RETURN_GENERATED_KEYS);
-                insertColor.setString(1, vehicle.getColor());
-                insertColor.executeUpdate();
-                colorRs = insertColor.getGeneratedKeys();
-                colorRs.next();
-                colorId = colorRs.getInt(1);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding color id from database.");
-        }
-        int typeId;
-        try {
-            PreparedStatement findType;
-            String typeQuery = "SELECT id FROM types WHERE type = ?";
-            findType = connection.prepareStatement(typeQuery);
-            findType.setString(1, vehicle.getType());
-            ResultSet typeRs = findType.executeQuery();
-            if (typeRs.next()) {
-                typeId = typeRs.getInt("id");
-            } else {
-                String typeStatement = "INSERT INTO types (type) VALUES (?)";
-                PreparedStatement insertType = connection.prepareStatement(typeStatement, Statement.RETURN_GENERATED_KEYS);
-                insertType.setString(1, vehicle.getType());
-                insertType.executeUpdate();
-                typeRs = insertType.getGeneratedKeys();
-                typeRs.next();
-                typeId = typeRs.getInt(1);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding type id from database.");
-        }
+        int makeId = findMakeId(vehicle.getMake());
+        int colorId = findColorId(vehicle.getColor());
+        int typeId = findTypeId(vehicle.getType());
         PreparedStatement statement;
         String query = "INSERT INTO vehicles(user_id, make_id, model, year, color_id, price, mileage, type_id, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String userId = "" + getUserId(vehicle.getUsername());
@@ -336,42 +276,44 @@ public class MySQLVehiclesDao implements Vehicles {
         }
     }
 
-    @Override
-    public void edit(Vehicle vehicle, String newPurpose) {
+    public int findMakeId(String vehicleMake) {
         int makeId;
         try {
             PreparedStatement findMake;
             String makeQuery = "SELECT id FROM makes WHERE make = ?";
             findMake = connection.prepareStatement(makeQuery);
-            findMake.setString(1, vehicle.getMake());
+            findMake.setString(1, vehicleMake);
             ResultSet makeRs = findMake.executeQuery();
             if (makeRs.next()) {
                 makeId = makeRs.getInt("id");
             } else {
                 String makeStatement = "INSERT INTO makes (make) VALUES (?)";
                 PreparedStatement insertMake = connection.prepareStatement(makeStatement, Statement.RETURN_GENERATED_KEYS);
-                insertMake.setString(1, vehicle.getMake());
+                insertMake.setString(1, vehicleMake);
                 insertMake.executeUpdate();
                 makeRs = insertMake.getGeneratedKeys();
                 makeRs.next();
                 makeId = makeRs.getInt(1);
             }
+            return makeId;
         } catch (SQLException e) {
             throw new RuntimeException("Error finding make id from database.");
         }
+    }
+    public int findColorId(String vehicleColor) {
         int colorId;
         try {
             PreparedStatement findColor;
             String colorQuery = "SELECT id FROM colors WHERE color = ?";
             findColor = connection.prepareStatement(colorQuery);
-            findColor.setString(1, vehicle.getColor());
+            findColor.setString(1, vehicleColor);
             ResultSet colorRs = findColor.executeQuery();
             if (colorRs.next()) {
                 colorId = colorRs.getInt("id");
             } else {
                 String colorStatement = "INSERT INTO colors (color) VALUES (?)";
                 PreparedStatement insertColor = connection.prepareStatement(colorStatement, Statement.RETURN_GENERATED_KEYS);
-                insertColor.setString(1, vehicle.getColor());
+                insertColor.setString(1, vehicleColor);
                 insertColor.executeUpdate();
                 colorRs = insertColor.getGeneratedKeys();
                 colorRs.next();
@@ -380,19 +322,23 @@ public class MySQLVehiclesDao implements Vehicles {
         } catch (SQLException e) {
             throw new RuntimeException("Error finding color id from database.");
         }
+        return colorId;
+    }
+    public int findTypeId(String vehicleType) {
+
         int typeId;
         try {
             PreparedStatement findType;
             String typeQuery = "SELECT id FROM types WHERE type = ?";
             findType = connection.prepareStatement(typeQuery);
-            findType.setString(1, vehicle.getType());
+            findType.setString(1, vehicleType);
             ResultSet typeRs = findType.executeQuery();
             if (typeRs.next()) {
                 typeId = typeRs.getInt("id");
             } else {
                 String typeStatement = "INSERT INTO types (type) VALUES (?)";
                 PreparedStatement insertType = connection.prepareStatement(typeStatement, Statement.RETURN_GENERATED_KEYS);
-                insertType.setString(1, vehicle.getType());
+                insertType.setString(1, vehicleType);
                 insertType.executeUpdate();
                 typeRs = insertType.getGeneratedKeys();
                 typeRs.next();
@@ -401,6 +347,14 @@ public class MySQLVehiclesDao implements Vehicles {
         } catch (SQLException e) {
             throw new RuntimeException("Error finding type id from database.");
         }
+        return typeId;
+    }
+
+    @Override
+    public void edit(Vehicle vehicle, String newPurpose) {
+        int makeId = findMakeId(vehicle.getMake());
+        int colorId = findColorId(vehicle.getColor());
+        int typeId = findTypeId(vehicle.getType());
         PreparedStatement statement;
         String query = "UPDATE vehicles SET make_id = ?, model = ?, year = ?, color_id = ?, price = ?, mileage = ?, type_id = ?, description = ? WHERE id = ?";
         String vehicleId = "" + vehicle.getId();
