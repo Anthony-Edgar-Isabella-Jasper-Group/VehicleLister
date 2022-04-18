@@ -14,7 +14,9 @@ CREATE TABLE users
     security_question VARCHAR(255) NOT NULL,
     security_answer   VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
-    UNIQUE (username, email)
+    UNIQUE (username),
+    UNIQUE (email)
+
 );
 
 CREATE TABLE purposes
